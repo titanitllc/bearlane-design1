@@ -1,0 +1,65 @@
+/*
+ * BearLane Design — Block Editor Stylesheet
+ * Applied inside the Gutenberg editor to match front-end typography.
+ */
+
+:root {
+  --color-accent:  #111827;
+  --color-text:    #111827;
+  --color-bg:      #fafafa;
+  --color-border:  #e5e7eb;
+  --font-sans:     'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+}
+
+.editor-styles-wrapper {
+  font-family: var(--font-sans) !important;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.editor-styles-wrapper h1,
+.editor-styles-wrapper h2,
+.editor-styles-wrapper h3,
+.editor-styles-wrapper h4,
+.editor-styles-wrapper h5,
+.editor-styles-wrapper h6 {
+  font-family: var(--font-sans) !important;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--color-text);
+}
+
+/* Block style — Card */
+.editor-styles-wrapper .is-style-bearlane-card {
+  background-color: #ffffff;
+  border-radius: 0.75rem;
+  padding: 2rem;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.06);
+  border: 1px solid var(--color-border);
+}
+
+/* Block style — Accent heading */
+.editor-styles-wrapper .is-style-bearlane-accent {
+  border-left: 4px solid var(--color-accent);
+  padding-left: 1rem;
+}
+
+/* Block style — Rounded image */
+.editor-styles-wrapper .is-style-bearlane-rounded img { border-radius: 1rem; }
+
+/* Block style — Outline button */
+.editor-styles-wrapper .is-style-bearlane-outline .wp-block-button__link {
+  background-color: transparent !important;
+  color: var(--color-accent) !important;
+  border: 1.5px solid var(--color-accent) !important;
+}
+
+/* Block style — Highlight quote */
+.editor-styles-wrapper .is-style-bearlane-highlight {
+  background-color: var(--color-bg);
+  border-left: 4px solid var(--color-accent);
+  padding: 1.5rem 2rem;
+  font-style: italic;
+}
