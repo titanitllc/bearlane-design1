@@ -329,17 +329,169 @@
 	// -------------------------------------------------------------------------
 
 	( function initNewsletterForm() {
-		const form = document.querySelector( '.newsletter-form' );
-		if ( ! form ) return;
+		document.querySelectorAll( '.newsletter-form' ).forEach( function ( form ) {
+			form.addEventListener( 'submit', function ( e ) {
+				e.preventDefault();
+				const btn   = form.querySelector( '.newsletter-form__btn' );
+				const input = form.querySelector( '.newsletter-form__input' );
+				if ( ! input || ! input.value || ! input.value.includes( '@' ) ) return;
+				btn.textContent = '✓ Subscribed!';
+				btn.disabled    = true;
+				input.disabled  = true;
+			} );
+		} );
+	} )();
 
-		form.addEventListener( 'submit', function ( e ) {
-			e.preventDefault();
-			const btn   = form.querySelector( '.newsletter-form__btn' );
-			const input = form.querySelector( '.newsletter-form__input' );
-			if ( ! input.value || ! input.value.includes( '@' ) ) return;
-			btn.textContent = '✓ Subscribed!';
-			btn.disabled    = true;
-			input.disabled  = true;
+	// -------------------------------------------------------------------------
+	// FAQ Accordion
+	// -------------------------------------------------------------------------
+
+	( function initFaqAccordion() {
+		const triggers = document.querySelectorAll( '.js-faq-trigger' );
+		if ( ! triggers.length ) return;
+
+		triggers.forEach( function ( trigger ) {
+			trigger.addEventListener( 'click', function () {
+				const expanded = this.getAttribute( 'aria-expanded' ) === 'true';
+				const panel    = document.getElementById( this.getAttribute( 'aria-controls' ) );
+
+				// Close all others (accordion behaviour).
+				triggers.forEach( function ( t ) {
+					const p = document.getElementById( t.getAttribute( 'aria-controls' ) );
+					t.setAttribute( 'aria-expanded', 'false' );
+					if ( p ) p.hidden = true;
+				} );
+
+				// Toggle this one.
+				if ( ! expanded ) {
+					this.setAttribute( 'aria-expanded', 'true' );
+					if ( panel ) panel.hidden = false;
+				}
+			} );
+		} );
+
+		// Keyboard navigation.
+		document.querySelectorAll( '.faq-accordion' ).forEach( function ( accordion ) {
+			accordion.addEventListener( 'keydown', function ( e ) {
+				const all = Array.from( accordion.querySelectorAll( '.js-faq-trigger' ) );
+				const idx = all.indexOf( document.activeElement );
+				if ( idx === -1 ) return;
+				if ( e.key === 'ArrowDown' ) { e.preventDefault(); ( all[ idx + 1 ] || all[ 0 ] ).focus(); }
+				if ( e.key === 'ArrowUp' )   { e.preventDefault(); ( all[ idx - 1 ] || all[ all.length - 1 ] ).focus(); }
+				if ( e.key === 'Home' )       { e.preventDefault(); all[ 0 ].focus(); }
+				if ( e.key === 'End' )        { e.preventDefault(); all[ all.length - 1 ].focus(); }
+			} );
+		} );
+	} )();
+
+	// -------------------------------------------------------------------------
+	// Product Tabs (Best Sellers / New Arrivals / Staff Picks)
+	// -------------------------------------------------------------------------
+
+	( function initProductTabs() {
+		const tabSets = document.querySelectorAll( '[role="tablist"]' );
+		if ( ! tabSets.length ) return;
+
+		tabSets.forEach( function ( tablist ) {
+			const tabs   = Array.from( tablist.querySelectorAll( '[role="tab"]' ) );
+			const panels = tabs.map( t => document.getElementById( t.getAttribute( 'aria-controls' ) ) );
+
+			function activate( idx ) {
+				tabs.forEach( ( t, i ) => {
+					const selected = i === idx;
+					t.setAttribute( 'aria-selected', String( selected ) );
+					t.classList.toggle( 'is-active', selected );
+					if ( panels[ i ] ) {
+						panels[ i ].hidden    = ! selected;
+						panels[ i ].classList.toggle( 'is-active', selected );
+					}
+				} );
+			}
+
+			tabs.forEach( function ( tab, i ) {
+				tab.addEventListener( 'click', () => activate( i ) );
+				tab.addEventListener( 'keydown', function ( e ) {
+					if ( e.key === 'ArrowRight' ) { activate( ( i + 1 ) % tabs.length ); tabs[ ( i + 1 ) % tabs.length ].focus(); }
+					if ( e.key === 'ArrowLeft' )  { activate( ( i - 1 + tabs.length ) % tabs.length ); tabs[ ( i - 1 + tabs.length ) % tabs.length ].focus(); }
+				} );
+			} );
+		} );
+	} )();
+
+	// -------------------------------------------------------------------------
+	// Scroll-reveal animation (Intersection Observer) — extended targets
+	// -------------------------------------------------------------------------
+
+	( function initScrollRevealExtended() {
+		const items = document.querySelectorAll(
+			'.how-it-works-step, .embroidery-quality-item, .bulk-use-case, ' +
+			'.faq-item, .testimonial-card, .product-card, .category-card, ' +
+			'.usp-item, .value-card'
+		);
+		if ( ! items.length ) return;
+
+		const observer = new IntersectionObserver( function ( entries ) {
+			entries.forEach( function ( entry ) {
+				if ( entry.isIntersecting ) {
+					entry.target.style.animation = 'fadeInUp 0.45s ease both';
+					observer.unobserve( entry.target );
+				}
+			} );
+		}, { threshold: 0.08 } );
+
+		items.forEach( item => observer.observe( item ) );
+	} )();
+
+	// -------------------------------------------------------------------------
+	// Sticky Add-to-Cart (mobile — single product page)
+	// -------------------------------------------------------------------------
+
+	( function initStickyAtc() {
+		const stickyBar = document.querySelector( '.sticky-atc' );
+		const anchor    = document.getElementById( 'product-add-to-cart-anchor' );
+		if ( ! stickyBar || ! anchor ) return;
+
+		const observer = new IntersectionObserver( function ( entries ) {
+			entries.forEach( function ( entry ) {
+				stickyBar.classList.toggle( 'is-visible', ! entry.isIntersecting );
+			} );
+		}, { threshold: 0 } );
+
+		observer.observe( anchor );
+
+		// Scroll to add-to-cart on sticky bar click.
+		const stickyBtn = stickyBar.querySelector( '.sticky-atc__btn' );
+		if ( stickyBtn ) {
+			stickyBtn.addEventListener( 'click', function () {
+				const form = document.querySelector( 'form.cart' );
+				if ( form ) {
+					form.scrollIntoView( { behavior: 'smooth', block: 'center' } );
+					const btn = form.querySelector( '[type="submit"]' );
+					if ( btn ) setTimeout( () => btn.focus(), 300 );
+				}
+			} );
+		}
+	} )();
+
+	// -------------------------------------------------------------------------
+	// Thread color swatch selection
+	// -------------------------------------------------------------------------
+
+	( function initThreadSwatches() {
+		document.querySelectorAll( '.thread-color-swatches' ).forEach( function ( group ) {
+			const swatches = group.querySelectorAll( '.thread-swatch' );
+			const input    = group.parentElement ? group.parentElement.querySelector( 'input[type="hidden"]' ) : null;
+
+			swatches.forEach( function ( swatch ) {
+				swatch.addEventListener( 'click', function () {
+					swatches.forEach( s => s.classList.remove( 'is-selected' ) );
+					this.classList.add( 'is-selected' );
+					if ( input ) input.value = this.dataset.color || this.title || '';
+				} );
+				swatch.addEventListener( 'keydown', function ( e ) {
+					if ( e.key === 'Enter' || e.key === ' ' ) { e.preventDefault(); this.click(); }
+				} );
+			} );
 		} );
 	} )();
 

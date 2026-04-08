@@ -3,6 +3,13 @@
  * BearLane Design — Single Product Template
  *
  * Wraps WooCommerce's single-product hooks in our layout.
+ * Embroidery-specific enhancements:
+ *   - Production time notice (injected via woocommerce.php hook)
+ *   - Embroidery options panel (injected via woocommerce.php hook)
+ *   - Trust strip below add-to-cart (injected via woocommerce.php hook)
+ *   - Sticky mobile add-to-cart bar
+ *   - Care instructions reminder in product tabs (WC native tab)
+ *   - Related products grid
  *
  * @package BearLane
  */
@@ -11,7 +18,11 @@ get_header();
 
 while ( have_posts() ) :
 	the_post();
-	?>
+
+	global $product;
+	$product_title = $product instanceof \WC_Product ? $product->get_name() : get_the_title();
+	$product_price = $product instanceof \WC_Product ? $product->get_price_html() : '';
+?>
 
 <main id="site-content" class="single-product-page">
 
@@ -20,6 +31,9 @@ while ( have_posts() ) :
 			<?php bearlane_breadcrumbs(); ?>
 		</div>
 	</div>
+
+	<!-- Anchor for sticky add-to-cart observer -->
+	<span id="product-add-to-cart-anchor" aria-hidden="true"></span>
 
 	<div class="container">
 		<?php woocommerce_content(); ?>
@@ -34,7 +48,10 @@ while ( have_posts() ) :
 	?>
 	<section class="section related-products" aria-label="<?php esc_attr_e( 'Related Products', 'bearlane' ); ?>">
 		<div class="container">
-			<h2 class="section__title"><?php esc_html_e( 'You Might Also Like', 'bearlane' ); ?></h2>
+			<header class="section__header">
+				<h2 class="section__title"><?php esc_html_e( 'You Might Also Like', 'bearlane' ); ?></h2>
+				<p class="section__subtitle"><?php esc_html_e( 'More shirts ready for your custom embroidery.', 'bearlane' ); ?></p>
+			</header>
 			<div class="product-grid product-grid--4col">
 				<?php foreach ( $related_products as $related_product ) : ?>
 				<?php bearlane_part( 'template-parts/product', 'card', [ 'product' => $related_product ] ); ?>
@@ -45,6 +62,19 @@ while ( have_posts() ) :
 	<?php endif; ?>
 
 </main>
+
+<!-- Sticky Add-to-Cart bar (mobile only — shown when the main form scrolls out of view) -->
+<div class="sticky-atc" role="complementary" aria-label="<?php esc_attr_e( 'Quick add to cart', 'bearlane' ); ?>">
+	<div class="sticky-atc__info">
+		<div class="sticky-atc__title"><?php echo esc_html( $product_title ); ?></div>
+		<?php if ( $product_price ) : ?>
+		<div class="sticky-atc__price"><?php echo $product_price; // phpcs:ignore ?></div>
+		<?php endif; ?>
+	</div>
+	<button class="btn btn--primary sticky-atc__btn">
+		<?php esc_html_e( 'Add to Cart', 'bearlane' ); ?>
+	</button>
+</div>
 
 <?php
 endwhile;
