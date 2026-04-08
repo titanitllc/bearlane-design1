@@ -35,10 +35,10 @@ function bearlane_enqueue_styles(): void {
 		);
 	}
 
-	// Google Fonts — Inter.
+	// Google Fonts — Montserrat + Open Sans.
 	wp_enqueue_style(
 		'bearlane-fonts',
-		'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap',
+		'https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Open+Sans:wght@400;500;600;700&display=swap',
 		[],
 		null // Google manages its own versioning.
 	);

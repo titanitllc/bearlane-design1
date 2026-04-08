@@ -4,13 +4,13 @@
   "settings": {
     "color": {
       "palette": [
-        { "slug": "accent",     "color": "#111827", "name": "Accent"     },
-        { "slug": "text",       "color": "#111827", "name": "Text"       },
-        { "slug": "muted",      "color": "#6b7280", "name": "Muted"      },
-        { "slug": "bg",         "color": "#fafafa", "name": "Background" },
+        { "slug": "accent",     "color": "#11b8c9", "name": "Accent"     },
+        { "slug": "text",       "color": "#1b2430", "name": "Text"       },
+        { "slug": "muted",      "color": "#5e6a75", "name": "Muted"      },
+        { "slug": "bg",         "color": "#f2f4f5", "name": "Background" },
         { "slug": "surface",    "color": "#ffffff", "name": "Surface"    },
-        { "slug": "surface-2",  "color": "#f3f4f6", "name": "Surface 2"  },
-        { "slug": "border",     "color": "#e5e7eb", "name": "Border"     },
+        { "slug": "surface-2",  "color": "#e8eef1", "name": "Surface 2"  },
+        { "slug": "border",     "color": "#d5dde2", "name": "Border"     },
         { "slug": "error",      "color": "#dc2626", "name": "Error"      },
         { "slug": "success",    "color": "#16a34a", "name": "Success"    }
       ],
@@ -23,9 +23,14 @@
     "typography": {
       "fontFamilies": [
         {
-          "fontFamily": "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif",
-          "slug": "inter",
-          "name": "Inter"
+          "fontFamily": "'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif",
+          "slug": "open-sans",
+          "name": "Open Sans"
+        },
+        {
+          "fontFamily": "'Montserrat', 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif",
+          "slug": "montserrat",
+          "name": "Montserrat"
         }
       ],
       "fontSizes": [
@@ -71,27 +76,27 @@
   },
   "styles": {
     "color": {
-      "background": "#fafafa",
-      "text":       "#111827"
+      "background": "#f2f4f5",
+      "text":       "#1b2430"
     },
     "typography": {
-      "fontFamily": "var(--wp--preset--font-family--inter, 'Inter', sans-serif)",
+      "fontFamily": "var(--wp--preset--font-family--open-sans, 'Open Sans', sans-serif)",
       "fontSize":   "var(--wp--preset--font-size--md)",
       "lineHeight": "1.6"
     },
     "elements": {
       "link": {
         "color": { "text": "#111827" },
-        ":hover": { "color": { "text": "#374151" } }
+        ":hover": { "color": { "text": "#0898a6" } }
       },
-      "h1": { "typography": { "fontWeight": "700", "lineHeight": "1.1", "letterSpacing": "-0.03em" } },
-      "h2": { "typography": { "fontWeight": "600", "lineHeight": "1.15", "letterSpacing": "-0.02em" } },
-      "h3": { "typography": { "fontWeight": "600", "lineHeight": "1.2" } }
+      "h1": { "typography": { "fontFamily": "var(--wp--preset--font-family--montserrat, 'Montserrat', sans-serif)", "fontWeight": "700", "lineHeight": "1.1", "letterSpacing": "-0.03em" } },
+      "h2": { "typography": { "fontFamily": "var(--wp--preset--font-family--montserrat, 'Montserrat', sans-serif)", "fontWeight": "600", "lineHeight": "1.15", "letterSpacing": "-0.02em" } },
+      "h3": { "typography": { "fontFamily": "var(--wp--preset--font-family--montserrat, 'Montserrat', sans-serif)", "fontWeight": "600", "lineHeight": "1.2" } }
     },
     "blocks": {
       "core/separator": {
-        "color": { "text": "#e5e7eb" },
-        "border": { "color": "#e5e7eb", "width": "1px" }
+        "color": { "text": "#d5dde2" },
+        "border": { "color": "#d5dde2", "width": "1px" }
       }
     }
   }
