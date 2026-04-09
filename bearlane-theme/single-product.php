@@ -36,7 +36,17 @@ while ( have_posts() ) :
 	<span id="product-add-to-cart-anchor" aria-hidden="true"></span>
 
 	<div class="container">
-		<?php woocommerce_content(); ?>
+		<?php
+		/*
+		 * We are already inside a have_posts() / the_post() loop, so we must
+		 * render the single-product content template directly. Calling
+		 * woocommerce_content() here would trigger its own inner have_posts()
+		 * loop, which in turn calls rewind_posts() once the current post is
+		 * exhausted — resetting the outer loop's pointer and causing an
+		 * infinite loop (fatal: max execution time / memory exhausted).
+		 */
+		wc_get_template_part( 'content', 'single-product' );
+		?>
 	</div>
 
 	<?php
