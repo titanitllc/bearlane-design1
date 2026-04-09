@@ -421,6 +421,75 @@ function bearlane_sanitize_sections_option( $raw ): array {
 }
 
 /* =============================================================
+ * RENDERER
+ * ============================================================= */
+
+/**
+ * Render a single section by ID.
+ *
+ * Each section schema declares its own `template` (a path relative
+ * to the theme directory). The template file reads its content via
+ * bearlane_section_content(); this dispatcher just loads it.
+ *
+ * Third parties can swap / extend output with:
+ *   - filter `bearlane_section_template_{id}` — replace the template path
+ *   - action `bearlane_before_section_{id}`    — echo before the template
+ *   - action `bearlane_after_section_{id}`     — echo after the template
+ *   - filter `bearlane_section_skip_{id}`      — return true to skip
+ *
+ * @param string $section_id Section ID.
+ */
+function bearlane_render_section( string $section_id ): void {
+	$registry = bearlane_sections_registry();
+	if ( empty( $registry[ $section_id ] ) ) {
+		return;
+	}
+
+	if ( apply_filters( "bearlane_section_skip_{$section_id}", false ) ) {
+		return;
+	}
+
+	$template = $registry[ $section_id ]['template'] ?? '';
+	$template = apply_filters( "bearlane_section_template_{$section_id}", $template );
+	if ( ! $template ) {
+		return;
+	}
+
+	$full_path = BEARLANE_DIR . '/' . ltrim( $template, '/' );
+	if ( ! file_exists( $full_path ) ) {
+		return;
+	}
+
+	/**
+	 * Expose the section ID to the template via a global so
+	 * template parts can call bearlane_section_content() without
+	 * needing to know their own ID.
+	 */
+	$GLOBALS['bearlane_current_section_id'] = $section_id;
+
+	do_action( "bearlane_before_section_{$section_id}" );
+	include $full_path;
+	do_action( "bearlane_after_section_{$section_id}" );
+
+	unset( $GLOBALS['bearlane_current_section_id'] );
+}
+
+/**
+ * Helper template parts use this to grab their own content array
+ * without hardcoding the section ID.
+ *
+ * @param string $fallback_id Used when called outside the section loop.
+ * @return array
+ */
+function bearlane_current_section_content( string $fallback_id = '' ): array {
+	$id = $GLOBALS['bearlane_current_section_id'] ?? $fallback_id;
+	if ( ! $id ) {
+		return [];
+	}
+	return bearlane_section_content( $id );
+}
+
+/* =============================================================
  * MIGRATION
  * ============================================================= */
 

@@ -1,48 +1,66 @@
 <?php
 /**
- * Template Part — Best Sellers / New Arrivals Tabbed Section
+ * Template Part — Best Sellers / Tabbed Product Showcase
  *
- * Tabbed product showcase: Best Sellers · New Arrivals · Staff Picks
+ * Driven by bearlane_sections → best_sellers.
  *
  * @package BearLane
  */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 if ( ! class_exists( 'WooCommerce' ) ) {
 	return;
 }
 
-$tabs = [
-	'best-sellers' => [
-		'label'    => __( 'Best Sellers', 'bearlane' ),
+$content = bearlane_current_section_content( 'best_sellers' );
+
+$eyebrow  = (string) ( $content['eyebrow'] ?? '' );
+$heading  = (string) ( $content['heading'] ?? '' );
+$per_tab  = max( 1, (int) ( $content['products_per_tab'] ?? 4 ) );
+
+$tabs = [];
+
+if ( ! empty( $content['show_best_sellers'] ) ) {
+	$tabs['best-sellers'] = [
+		'label'    => (string) ( $content['best_sellers_label'] ?? __( 'Best Sellers', 'bearlane' ) ),
 		'products' => wc_get_products( [
-			'limit'   => 4,
+			'limit'   => $per_tab,
 			'status'  => 'publish',
 			'orderby' => 'popularity',
 			'order'   => 'DESC',
 		] ),
-	],
-	'new-arrivals' => [
-		'label'    => __( 'New Arrivals', 'bearlane' ),
+	];
+}
+
+if ( ! empty( $content['show_new_arrivals'] ) ) {
+	$tabs['new-arrivals'] = [
+		'label'    => (string) ( $content['new_arrivals_label'] ?? __( 'New Arrivals', 'bearlane' ) ),
 		'products' => wc_get_products( [
-			'limit'   => 4,
+			'limit'   => $per_tab,
 			'status'  => 'publish',
 			'orderby' => 'date',
 			'order'   => 'DESC',
 		] ),
-	],
-	'featured' => [
-		'label'    => __( 'Staff Picks', 'bearlane' ),
+	];
+}
+
+if ( ! empty( $content['show_staff_picks'] ) ) {
+	$tabs['featured'] = [
+		'label'    => (string) ( $content['staff_picks_label'] ?? __( 'Staff Picks', 'bearlane' ) ),
 		'products' => wc_get_products( [
-			'limit'    => 4,
+			'limit'    => $per_tab,
 			'status'   => 'publish',
 			'featured' => true,
 			'orderby'  => 'date',
 			'order'    => 'DESC',
 		] ),
-	],
-];
+	];
+}
 
-// Remove empty tabs.
+// Drop empty tabs.
 foreach ( $tabs as $key => $tab ) {
 	if ( empty( $tab['products'] ) ) {
 		unset( $tabs[ $key ] );
@@ -55,6 +73,12 @@ if ( empty( $tabs ) ) {
 
 $tab_keys = array_keys( $tabs );
 $first    = $tab_keys[0];
+
+$footer_label = (string) ( $content['footer_button_label'] ?? __( 'View All Products', 'bearlane' ) );
+$footer_url   = (string) ( $content['footer_button_url'] ?? '' );
+if ( ! $footer_url ) {
+	$footer_url = wc_get_page_permalink( 'shop' );
+}
 ?>
 
 <section class="section best-sellers-section" aria-label="<?php esc_attr_e( 'Shop Our Collection', 'bearlane' ); ?>">
@@ -62,11 +86,14 @@ $first    = $tab_keys[0];
 
 		<div class="best-sellers-header">
 			<div class="best-sellers-header__text">
-				<div class="section__eyebrow"><?php esc_html_e( 'Shop the Collection', 'bearlane' ); ?></div>
-				<h2 class="section__title"><?php esc_html_e( 'Shirts Worth Embroidering', 'bearlane' ); ?></h2>
+				<?php if ( $eyebrow ) : ?>
+				<div class="section__eyebrow"><?php echo esc_html( $eyebrow ); ?></div>
+				<?php endif; ?>
+				<?php if ( $heading ) : ?>
+				<h2 class="section__title"><?php echo esc_html( $heading ); ?></h2>
+				<?php endif; ?>
 			</div>
 
-			<!-- Tabs nav -->
 			<nav class="product-tabs" aria-label="<?php esc_attr_e( 'Product categories', 'bearlane' ); ?>" role="tablist">
 				<?php foreach ( $tabs as $key => $tab ) : ?>
 				<button class="product-tab<?php echo $key === $first ? ' is-active' : ''; ?>"
@@ -81,7 +108,6 @@ $first    = $tab_keys[0];
 			</nav>
 		</div>
 
-		<!-- Tab panels -->
 		<?php foreach ( $tabs as $key => $tab ) : ?>
 		<div class="product-tab-panel<?php echo $key === $first ? ' is-active' : ''; ?>"
 			id="tabpanel-<?php echo esc_attr( $key ); ?>"
@@ -97,8 +123,8 @@ $first    = $tab_keys[0];
 		<?php endforeach; ?>
 
 		<div class="best-sellers-footer">
-			<a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>" class="btn btn--outline">
-				<?php esc_html_e( 'View All Products', 'bearlane' ); ?>
+			<a href="<?php echo esc_url( $footer_url ); ?>" class="btn btn--outline">
+				<?php echo esc_html( $footer_label ); ?>
 				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
 			</a>
 		</div>

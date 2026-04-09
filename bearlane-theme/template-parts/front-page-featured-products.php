@@ -1,28 +1,64 @@
 <?php
 /**
- * Template Part — Homepage Featured Products
+ * Template Part — Featured Products
  *
- * Displays a grid of featured WooCommerce products.
+ * Driven by bearlane_sections → featured_products.
  *
  * @package BearLane
  */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 if ( ! class_exists( 'WooCommerce' ) ) {
 	return;
 }
 
-$products = wc_get_products( [
-	'limit'    => 8,
-	'status'   => 'publish',
-	'featured' => true,
-	'orderby'  => 'date',
-	'order'    => 'DESC',
-] );
+$content = bearlane_current_section_content( 'featured_products' );
 
-// Fallback to recent products if no featured ones exist.
-if ( empty( $products ) ) {
+$heading    = (string) ( $content['heading'] ?? '' );
+$subheading = (string) ( $content['subheading'] ?? '' );
+$source     = (string) ( $content['source'] ?? 'featured' );
+$limit      = max( 1, (int) ( $content['limit'] ?? 8 ) );
+
+$show_view_all  = ! empty( $content['show_view_all'] );
+$view_all_label = (string) ( $content['view_all_label'] ?? __( 'View all products', 'bearlane' ) );
+
+$query_args = [
+	'limit'   => $limit,
+	'status'  => 'publish',
+	'orderby' => 'date',
+	'order'   => 'DESC',
+];
+
+switch ( $source ) {
+
+	case 'manual':
+		$ids = array_filter( array_map( 'intval', (array) ( $content['product_ids'] ?? [] ) ) );
+		if ( empty( $ids ) ) {
+			return;
+		}
+		$query_args['include'] = $ids;
+		$query_args['orderby'] = 'post__in';
+		break;
+
+	case 'featured':
+		$query_args['featured'] = true;
+		break;
+
+	case 'latest':
+	default:
+		// defaults above handle it.
+		break;
+}
+
+$products = wc_get_products( $query_args );
+
+if ( empty( $products ) && 'featured' === $source ) {
+	// Fallback to latest if no featured ones.
 	$products = wc_get_products( [
-		'limit'   => 8,
+		'limit'   => $limit,
 		'status'  => 'publish',
 		'orderby' => 'date',
 		'order'   => 'DESC',
@@ -38,11 +74,15 @@ if ( empty( $products ) ) {
 	<div class="container">
 
 		<header class="section__header">
-			<h2 class="section__title"><?php esc_html_e( 'Featured Products', 'bearlane' ); ?></h2>
-			<p class="section__subtitle"><?php esc_html_e( 'Handpicked for you.', 'bearlane' ); ?></p>
-			<?php if ( class_exists( 'WooCommerce' ) ) : ?>
+			<?php if ( $heading ) : ?>
+			<h2 class="section__title"><?php echo esc_html( $heading ); ?></h2>
+			<?php endif; ?>
+			<?php if ( $subheading ) : ?>
+			<p class="section__subtitle"><?php echo esc_html( $subheading ); ?></p>
+			<?php endif; ?>
+			<?php if ( $show_view_all ) : ?>
 			<a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>" class="section__link">
-				<?php esc_html_e( 'View all products', 'bearlane' ); ?> →
+				<?php echo esc_html( $view_all_label ); ?> →
 			</a>
 			<?php endif; ?>
 		</header>

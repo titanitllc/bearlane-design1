@@ -1,25 +1,51 @@
 <?php
 /**
- * Template Part — Homepage Category Showcase
+ * Template Part — Category Showcase
  *
- * Displays top-level product categories in a clean grid.
+ * Driven by bearlane_sections → categories. Categories are either
+ * auto-selected (most popular, excluding the uncategorised default)
+ * or hand-picked from the admin UI.
  *
  * @package BearLane
  */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 if ( ! class_exists( 'WooCommerce' ) ) {
 	return;
 }
 
-$categories = get_terms( [
-	'taxonomy'   => 'product_cat',
-	'orderby'    => 'count',
-	'order'      => 'DESC',
-	'number'     => 6,
-	'hide_empty' => true,
-	'parent'     => 0,
-	'exclude'    => [ get_option( 'default_product_cat', 0 ) ],
-] );
+$content = bearlane_current_section_content( 'categories' );
+
+$heading    = (string) ( $content['heading'] ?? '' );
+$subheading = (string) ( $content['subheading'] ?? '' );
+$source     = (string) ( $content['source'] ?? 'auto' );
+$limit      = max( 1, (int) ( $content['limit'] ?? 6 ) );
+
+if ( 'manual' === $source ) {
+	$ids = array_filter( array_map( 'intval', (array) ( $content['category_ids'] ?? [] ) ) );
+	if ( empty( $ids ) ) {
+		return;
+	}
+	$categories = get_terms( [
+		'taxonomy'   => 'product_cat',
+		'include'    => $ids,
+		'orderby'    => 'include',
+		'hide_empty' => false,
+	] );
+} else {
+	$categories = get_terms( [
+		'taxonomy'   => 'product_cat',
+		'orderby'    => 'count',
+		'order'      => 'DESC',
+		'number'     => $limit,
+		'hide_empty' => true,
+		'parent'     => 0,
+		'exclude'    => [ get_option( 'default_product_cat', 0 ) ],
+	] );
+}
 
 if ( is_wp_error( $categories ) || empty( $categories ) ) {
 	return;
@@ -30,8 +56,12 @@ if ( is_wp_error( $categories ) || empty( $categories ) ) {
 	<div class="container">
 
 		<header class="section__header">
-			<h2 class="section__title"><?php esc_html_e( 'Shop by Category', 'bearlane' ); ?></h2>
-			<p class="section__subtitle"><?php esc_html_e( 'Explore our curated collections.', 'bearlane' ); ?></p>
+			<?php if ( $heading ) : ?>
+			<h2 class="section__title"><?php echo esc_html( $heading ); ?></h2>
+			<?php endif; ?>
+			<?php if ( $subheading ) : ?>
+			<p class="section__subtitle"><?php echo esc_html( $subheading ); ?></p>
+			<?php endif; ?>
 		</header>
 
 		<div class="category-grid">
@@ -67,7 +97,7 @@ if ( is_wp_error( $categories ) || empty( $categories ) ) {
 				<span class="category-card__arrow" aria-hidden="true">→</span>
 			</a>
 			<?php endforeach; ?>
-		</div><!-- .category-grid -->
+		</div>
 
-	</div><!-- .container -->
+	</div>
 </section>

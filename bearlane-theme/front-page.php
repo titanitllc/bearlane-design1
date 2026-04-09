@@ -2,58 +2,89 @@
 /**
  * BearLane Design — Front Page
  *
- * Shown when the Reading Settings are set to a static front page.
- * Embroidery storefront homepage composed of focused template parts.
+ * Shown when Reading Settings → "Front page displays" is set to a
+ * static page. The section order, visibility, and content are all
+ * driven by Appearance → Homepage Sections. Zero content is hardcoded
+ * here.
  *
- * Section order (conversion-optimised for custom embroidered shirt sales):
- *   1. Hero           — Big visual statement + dual CTA + social proof strip
- *   2. Best Sellers   — Tabbed product showcase (best sellers / new arrivals / staff picks)
- *   3. How It Works   — 4-step custom order flow
- *   4. Categories     — Shop by style / collection
- *   5. Embroidery     — Quality showcase + craftsmanship detail
- *   6. USP            — 6-point trust grid
- *   7. Testimonials   — Verified customer reviews
- *   8. Bulk Order     — Business / team / event callout
- *   9. FAQ            — Common embroidery questions accordion
- *  10. Email Capture  — Lead gen with 10% offer
- *  11. Page Content   — Optional Gutenberg blocks (editor use)
+ * Override order of precedence:
+ *   1. If the static front page is edited with Elementor, Elementor's
+ *      canvas template handles rendering via elementor/theme/get_location
+ *      (see inc/elementor-compat.php) — this file's sections loop is
+ *      skipped automatically.
+ *   2. Otherwise, if the static front page contains block editor
+ *      content (non-empty post_content), we render those blocks
+ *      below the section loop — allowing a Gutenberg-first workflow
+ *      that adds custom layouts below the managed sections.
+ *   3. Otherwise, we loop through bearlane_sections_active_ids() and
+ *      render each enabled section in saved order.
  *
  * @package BearLane
  */
 
 get_header();
+
+/**
+ * Allow Elementor (or any page builder) to fully take over. When a
+ * page builder declares it is rendering this request, we skip the
+ * managed section loop entirely.
+ */
+$builder_takeover = apply_filters( 'bearlane_front_page_builder_takeover', false );
 ?>
 
 <main id="site-content" class="front-page">
 
-	<?php bearlane_part( 'template-parts/front-page', 'hero' ); ?>
+	<?php if ( $builder_takeover ) : ?>
 
-	<?php bearlane_part( 'template-parts/front-page', 'best-sellers' ); ?>
+		<?php
+		// Builder owns the page — render its content only.
+		if ( have_posts() ) :
+			while ( have_posts() ) :
+				the_post();
+				the_content();
+			endwhile;
+		endif;
+		?>
 
-	<?php bearlane_part( 'template-parts/front-page', 'how-it-works' ); ?>
+	<?php else : ?>
 
-	<?php bearlane_part( 'template-parts/front-page', 'categories' ); ?>
+		<?php
+		/**
+		 * Managed section loop.
+		 *
+		 * bearlane_sections_active_ids() returns an ordered list of
+		 * section IDs that are both in the registry AND enabled. The
+		 * renderer defers to a tiny dispatcher so third parties can
+		 * swap any section's output via the bearlane_render_section_{id}
+		 * action.
+		 */
+		$active_ids = bearlane_sections_active_ids();
 
-	<?php bearlane_part( 'template-parts/front-page', 'embroidery-showcase' ); ?>
+		foreach ( $active_ids as $section_id ) {
+			bearlane_render_section( $section_id );
+		}
+		?>
 
-	<?php bearlane_part( 'template-parts/front-page', 'usp' ); ?>
+		<?php
+		/**
+		 * Optional Gutenberg / post_content below the managed sections.
+		 * This lets editors add custom blocks under the last section
+		 * without leaving the block editor.
+		 */
+		if ( have_posts() ) :
+			while ( have_posts() ) :
+				the_post();
+				if ( get_the_content() ) :
+					?>
+					<section class="front-page__content container">
+						<?php the_content(); ?>
+					</section>
+					<?php
+				endif;
+			endwhile;
+		endif;
+		?>
 
-	<?php bearlane_part( 'template-parts/front-page', 'testimonials' ); ?>
-
-	<?php bearlane_part( 'template-parts/front-page', 'bulk-order' ); ?>
-
-	<?php bearlane_part( 'template-parts/front-page', 'faq' ); ?>
-
-	<?php bearlane_part( 'template-parts/front-page', 'email-capture' ); ?>
-
-	<?php if ( have_posts() ) : ?>
-		<?php while ( have_posts() ) : the_post(); ?>
-			<?php if ( get_the_content() ) : ?>
-			<section class="front-page__content container">
-				<?php the_content(); ?>
-			</section>
-			<?php endif; ?>
-		<?php endwhile; ?>
 	<?php endif; ?>
 
 </main>
