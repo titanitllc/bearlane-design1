@@ -32,6 +32,8 @@ $bearlane_modules = [
 	// Homepage sections engine — UI-driven registry, getters,
 	// sanitization, and seed migration from legacy Customizer values.
 	'/inc/sections.php',
+	// Homepage Sections admin UI (Appearance → Homepage Sections).
+	'/inc/admin-sections.php',
 ];
 
 foreach ( $bearlane_modules as $module ) {
