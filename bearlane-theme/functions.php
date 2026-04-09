@@ -6,7 +6,7 @@
  * Keep this file clean; add functionality in the relevant inc file.
  *
  * @package BearLane
- * @version 1.0.0
+ * @version 1.1.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Theme version constant — bump when releasing updates.
-define( 'BEARLANE_VERSION', '1.0.0' );
+define( 'BEARLANE_VERSION', '1.1.0' );
 define( 'BEARLANE_DIR', get_template_directory() );
 define( 'BEARLANE_URI', get_template_directory_uri() );
 
