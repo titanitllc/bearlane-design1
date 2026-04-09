@@ -34,6 +34,10 @@ $bearlane_modules = [
 	'/inc/sections.php',
 	// Homepage Sections admin UI (Appearance → Homepage Sections).
 	'/inc/admin-sections.php',
+	// Block patterns — one pattern per homepage section.
+	'/inc/block-patterns.php',
+	// Elementor compatibility (safe no-op when plugin absent).
+	'/inc/elementor-compat.php',
 ];
 
 foreach ( $bearlane_modules as $module ) {
