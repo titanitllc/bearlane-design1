@@ -63,12 +63,12 @@ Every file in `bearlane-theme/` with a one-line description of its purpose.
 | File | Purpose | Status |
 |---|---|---|
 | `index.php` | Blog / fallback archive template | Unchanged |
-| `front-page.php` | Homepage template — loops `bearlane_sections_active_ids()` in saved order, Gutenberg blocks rendered below, Elementor takeover aware | **Rewritten v2.1** |
-| `page.php` | Generic page template — banner/layout driven by "BearLane Page Options" meta box | **Rewritten v2.1** |
-| `page-about.php` | "About / Brand Story" template — now a UI-driven shell; all content comes from the block editor or block patterns | **Rewritten v2.1** |
+| `front-page.php` | Homepage template — loops `bearlane_sections_active_ids()` in saved order, Gutenberg blocks rendered below, Elementor takeover aware | **Rewritten v1.1** |
+| `page.php` | Generic page template — banner/layout driven by "BearLane Page Options" meta box | **Rewritten v1.1** |
+| `page-about.php` | "About / Brand Story" template — now a UI-driven shell; all content comes from the block editor or block patterns | **Rewritten v1.1** |
 | `page-contact.php` | Custom page template "Contact" | Unchanged |
-| `template-homepage-builder.php` | Assignable "Homepage Builder" template — renders managed sections + post content on any page | **New v2.1** |
-| `template-full-width.php` | Assignable "Full Width" template — minimal shell for Elementor canvases and landing pages | **New v2.1** |
+| `template-homepage-builder.php` | Assignable "Homepage Builder" template — renders managed sections + post content on any page | **New v1.1** |
+| `template-full-width.php` | Assignable "Full Width" template — minimal shell for Elementor canvases and landing pages | **New v1.1** |
 | `archive-product.php` | WooCommerce shop / product category archive | Unchanged |
 | `single-product.php` | WooCommerce single product page with embroidery options + sticky mobile ATC | Unchanged |
 | `search.php` | Search results template | Unchanged |
@@ -87,18 +87,18 @@ Loaded in order by `functions.php`. Each module owns a single concern.
 | `enqueue.php` | Enqueues styles, scripts, and Google Fonts; handles deferral, versioning, localization | Unchanged |
 | `helpers.php` | Reusable template helpers (SVG icon, breadcrumbs, rating stars, currency formatting) | Unchanged |
 | `woocommerce.php` | WC hooks, custom loop markup, AJAX quick-view and product filter endpoints, mini-cart fragments, embroidery customization fields, production notice, product trust strip, order meta | Unchanged |
-| `customizer.php` | Colours, typography, footer, announcement bar. The old Homepage Hero section is retained as "Homepage Hero (legacy)" solely for the one-time seed migration | **Updated v2.1** |
+| `customizer.php` | Colours, typography, footer, announcement bar. The old Homepage Hero section is retained as "Homepage Hero (legacy)" solely for the one-time seed migration | **Updated v1.1** |
 | `blocks.php` | Registers custom Gutenberg block styles and editor setup | Unchanged |
 | `nav-fallback.php` | Fallback navigation menu shown to admins when no menu is assigned | Unchanged |
-| `sections.php` | Homepage sections registry, getter API (`bearlane_sections_data` / `bearlane_section_field` / `bearlane_section_content` / `bearlane_section_is_enabled` / `bearlane_sections_active_ids`), sanitizer for all 13 field types, dispatcher `bearlane_render_section()`, and one-time seed migration from legacy Customizer values | **New v2.1** |
-| `admin-sections.php` | Registers **Appearance → Homepage Sections** — drag-drop ordering, enable toggles, field renderers (text, textarea, richtext, url, number, select, checkbox, color, image, svg, product_ids, category_ids, repeater), save handler with nonce + capability check | **New v2.1** |
-| `page-meta.php` | Per-page "BearLane Page Options" meta box (banner style, banner title/subtitle, banner image, layout), plus `bearlane_render_page_banner()` and `bearlane_page_layout_class()` template helpers | **New v2.1** |
-| `block-patterns.php` | Registers a `[bearlane_section]` shortcode + one Gutenberg block pattern per homepage section under a "BearLane Sections" category | **New v2.1** |
-| `elementor-compat.php` | Detects Elementor-built posts and raises the `bearlane_front_page_builder_takeover` filter so the managed section loop is skipped (no double rendering). Registers BearLane templates as Elementor-supported canvases. Safe no-op when Elementor is inactive | **New v2.1** |
+| `sections.php` | Homepage sections registry, getter API (`bearlane_sections_data` / `bearlane_section_field` / `bearlane_section_content` / `bearlane_section_is_enabled` / `bearlane_sections_active_ids`), sanitizer for all 13 field types, dispatcher `bearlane_render_section()`, and one-time seed migration from legacy Customizer values | **New v1.1** |
+| `admin-sections.php` | Registers **Appearance → Homepage Sections** — drag-drop ordering, enable toggles, field renderers (text, textarea, richtext, url, number, select, checkbox, color, image, svg, product_ids, category_ids, repeater), save handler with nonce + capability check | **New v1.1** |
+| `page-meta.php` | Per-page "BearLane Page Options" meta box (banner style, banner title/subtitle, banner image, layout), plus `bearlane_render_page_banner()` and `bearlane_page_layout_class()` template helpers | **New v1.1** |
+| `block-patterns.php` | Registers a `[bearlane_section]` shortcode + one Gutenberg block pattern per homepage section under a "BearLane Sections" category | **New v1.1** |
+| `elementor-compat.php` | Detects Elementor-built posts and raises the `bearlane_front_page_builder_takeover` filter so the managed section loop is skipped (no double rendering). Registers BearLane templates as Elementor-supported canvases. Safe no-op when Elementor is inactive | **New v1.1** |
 
 ### `inc/section-defaults/` — Per-section schemas
 
-One file per registered section. Each returns a PHP array defining the section's `id`, `label`, `description`, `icon`, `priority`, `default_enabled`, front-end `template`, and `fields` schema. Default field values exactly mirror the v2.0 hardcoded strings so un-edited sites render identically after the refactor.
+One file per registered section. Each returns a PHP array defining the section's `id`, `label`, `description`, `icon`, `priority`, `default_enabled`, front-end `template`, and `fields` schema. Default field values exactly mirror the v1.0.1 hardcoded strings so un-edited sites render identically after the refactor.
 
 | File | Section ID |
 |---|---|
@@ -116,7 +116,7 @@ One file per registered section. Each returns a PHP array defining the section's
 
 ### `template-parts/` — Reusable components
 
-Every `front-page-*.php` file now reads its content from the sections registry via `bearlane_current_section_content()`. Design / CSS classes are unchanged from v2.0; only the data source changed.
+Every `front-page-*.php` file now reads its content from the sections registry via `bearlane_current_section_content()`. Design / CSS classes are unchanged from v1.0.1; only the data source changed.
 
 | File | Purpose | Status |
 |---|---|---|
@@ -211,16 +211,16 @@ All new functionality should go into the relevant `inc/` file — do not add cod
 - **Block patterns** — one Gutenberg pattern per section under a "BearLane Sections" category. Each pattern renders a `[bearlane_section id="…"]` shortcode so patterns read from the same option as the homepage — single source of truth.
 - **Elementor compatibility** — detects Elementor-built posts via `_elementor_edit_mode` and auto-skips the managed section loop to prevent duplicate rendering. Safe no-op when Elementor is not installed.
 - **Per-page hero / layout meta box** — every Page gets a "BearLane Page Options" sidebar with banner style (default / full-width hero / hidden), banner title override, subtitle, banner image, and layout (contained / contained-with-sidebar / full-width).
-- **Zero-content-loss migration** — on first load after upgrade, `bearlane_sections_maybe_seed()` populates the option with defaults that exactly match v2.0's hardcoded strings, and carries over any existing Customizer hero / showcase values.
+- **Zero-content-loss migration** — on first load after upgrade, `bearlane_sections_maybe_seed()` populates the option with defaults that exactly match v1.0.1's hardcoded strings, and carries over any existing Customizer hero / showcase values.
 
-### Embroidery Storefront (v2.0 additions)
+### Embroidery Storefront (v1.0.1 additions)
 - **10-section homepage** with conversion-optimised section order
 - **Premium hero** with embroidery badge, dual CTA (Shop + Bulk Quote), social proof trust strip, and stats bar (5,000+ orders, 30+ thread colors, 10–14 day production, 100% satisfaction)
 - **Best Sellers/New Arrivals/Staff Picks** tabbed product section with accessible ARIA tabs
 - **How It Works** — 4-step custom order process (Choose → Upload → Approve → Ships)
 - **Embroidery Quality Showcase** — dark split section with close-up imagery + craftsmanship detail list (hand-digitized, industrial machines, Madeira threads, QC)
 - **USP Grid** — 6-point trust badges specific to embroidery (stitch quality, production time, thread colors, secure ordering, free shipping, satisfaction guarantee)
-- **Testimonials v2** — 4 verified reviews with customer avatars, order context, verified purchase badge, star rating, and overall rating callout
+- **Testimonials v1.0.1** — 4 verified reviews with customer avatars, order context, verified purchase badge, star rating, and overall rating callout
 - **Bulk Order Section** — dark section targeting teams, businesses, schools, events with perks list and use-case grid
 - **FAQ Accordion** — 8 common embroidery questions with accessible keyboard navigation
 - **Email Capture** — 2-column section with 10% first-order offer and benefit checklist
@@ -264,7 +264,7 @@ All new functionality should go into the relevant `inc/` file — do not add cod
 
 ---
 
-## Design Tokens (v2 additions)
+## Design Tokens (v1.0.1 additions)
 
 | Token | Value | Use |
 |---|---|---|
@@ -303,7 +303,7 @@ Data flow: `$_POST` → `woocommerce_add_cart_item_data` → cart session → `w
 
 ## Homepage Section Order
 
-As of v1.1, section order is **entirely UI-driven** — admins reorder sections by drag-and-drop in **Appearance → Homepage Sections**. The table below is the *default* order applied on first activation (and matches the v2.0 conversion funnel). Every section can be reordered, disabled, or re-enabled at any time without touching code.
+As of v1.1, section order is **entirely UI-driven** — admins reorder sections by drag-and-drop in **Appearance → Homepage Sections**. The table below is the *default* order applied on first activation (and matches the v1.0.1 conversion funnel). Every section can be reordered, disabled, or re-enabled at any time without touching code.
 
 | # | Section ID | Default | Purpose |
 |---|---|---|---|
@@ -418,7 +418,7 @@ All homepage content is admin-editable as of v1.1 — **no PHP editing is requir
 ## What Changed in v1.1 — UI-Driven Refactor
 
 ### Why these changes were made
-In v2.0 every homepage section's content lived inside its template-part PHP file as a hardcoded PHP array. That made the theme fast and clean but it also meant non-technical users couldn't edit a testimonial, reorder sections, or swap a hero image without a developer — and in managed hosting environments where the theme editor is disabled, changes required a full deploy. v1.1 removes that limitation entirely by moving every section into a typed schema backed by a single WP option, with a dedicated admin page, block patterns, and first-class Elementor compatibility.
+In v1.0.1 every homepage section's content lived inside its template-part PHP file as a hardcoded PHP array. That made the theme fast and clean but it also meant non-technical users couldn't edit a testimonial, reorder sections, or swap a hero image without a developer — and in managed hosting environments where the theme editor is disabled, changes required a full deploy. v1.1 removes that limitation entirely by moving every section into a typed schema backed by a single WP option, with a dedicated admin page, block patterns, and first-class Elementor compatibility.
 
 ### Architecture overview
 ```
@@ -506,7 +506,7 @@ Supported field types (sanitised per-type): `text`, `textarea`, `richtext`, `url
 ### Migration plan (applied automatically)
 On the first front-end request after upgrading, `bearlane_sections_maybe_seed()` runs once:
 1. If the `bearlane_sections` option already exists, do nothing.
-2. Otherwise build a fresh option by walking the registry and calling `bearlane_section_default_content()` on every section. Defaults were authored to exactly match v2.0's hardcoded strings, so the rendered homepage is byte-for-byte identical on first load.
+2. Otherwise build a fresh option by walking the registry and calling `bearlane_section_default_content()` on every section. Defaults were authored to exactly match v1.0.1's hardcoded strings, so the rendered homepage is byte-for-byte identical on first load.
 3. If any of `bearlane_hero_image`, `bearlane_hero_heading`, `bearlane_hero_subheading`, `bearlane_hero_cta_label`, `bearlane_hero_cta_url`, or `bearlane_showcase_image` exist in `theme_mods`, copy them into the new option so existing Customizer edits are preserved.
 
 **Zero content loss, zero manual steps.**
@@ -524,10 +524,10 @@ On the first front-end request after upgrading, `bearlane_sections_maybe_seed()`
 
 ---
 
-## What Changed in v2.0 — Implementation Summary
+## What Changed in v1.0.1 — Implementation Summary
 
 ### Why these changes were made
-The v1 template was a solid foundation but generic — it lacked embroidery-specific content, the homepage had no conversion funnel logic, and the product page had no customization UX. The v2 upgrade transforms it into a focused embroidery storefront.
+The v1.0 template was a solid foundation but generic — it lacked embroidery-specific content, the homepage had no conversion funnel logic, and the product page had no customization UX. The v1.0.1 upgrade transforms it into a focused embroidery storefront.
 
 ### Template parts changed
 | File | Change | Why |
@@ -543,12 +543,12 @@ The v1 template was a solid foundation but generic — it lacked embroidery-spec
 ### CSS additions (main.css, woocommerce.css)
 - Gold design token (`--color-gold: #c9a84c`) for premium embroidery branding
 - Section eyebrow component
-- Hero v2 styles (badge, trust strip, stats grid)
+- Hero v1.0.1 styles (badge, trust strip, stats grid)
 - How It Works card grid
 - Embroidery Showcase dark split section
 - Best sellers tabbed interface
 - USP 6-column grid variant
-- Testimonials v2 (footer, avatar, verified badge)
+- Testimonials v1.0.1 (footer, avatar, verified badge)
 - Bulk Order dark section
 - Email Capture 2-column layout
 - FAQ accordion with animation
