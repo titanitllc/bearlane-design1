@@ -32,14 +32,44 @@ function bearlane_elementor_active(): bool {
 /**
  * Whether the current (front-end) request is being rendered by
  * Elementor as the primary builder — i.e. the current post has an
- * Elementor-edited flag and Elementor will handle its content.
+ * Elementor-edited flag AND actually has a saved Elementor layout.
+ *
+ * We cannot rely on `_elementor_edit_mode` alone. Elementor writes
+ * that meta the first time a user clicks "Edit with Elementor" — even
+ * if they close the editor without saving. The result is that many
+ * pages (including fresh homepages) are flagged as built-with-Elementor
+ * despite having no actual layout. In that state, yielding to
+ * Elementor via `the_content()` produces an empty page because there
+ * is no `_elementor_data` to render.
+ *
+ * The correct check is: the page must have `_elementor_edit_mode`
+ * equal to `builder` AND a non-empty `_elementor_data` payload. When
+ * Elementor's document API is available we defer to Elementor's own
+ * `Document::is_built_with_elementor()` method for future-proofing,
+ * and then additionally verify that data exists.
  */
 function bearlane_elementor_is_built_with( int $post_id ): bool {
 	if ( ! bearlane_elementor_active() || ! $post_id ) {
 		return false;
 	}
-	// Documented Elementor meta flag set on any page built with Elementor.
-	return (bool) get_post_meta( $post_id, '_elementor_edit_mode', true );
+
+	$edit_mode = get_post_meta( $post_id, '_elementor_edit_mode', true );
+	if ( 'builder' !== $edit_mode ) {
+		return false;
+	}
+
+	// Require a non-empty saved layout. Elementor stores this as a
+	// JSON-encoded array; an empty layout is stored as `[]`.
+	$data = get_post_meta( $post_id, '_elementor_data', true );
+	if ( is_array( $data ) ) {
+		return ! empty( $data );
+	}
+	$data = is_string( $data ) ? trim( $data ) : '';
+	if ( '' === $data || '[]' === $data ) {
+		return false;
+	}
+
+	return true;
 }
 
 /* =============================================================
