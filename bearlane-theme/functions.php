@@ -34,6 +34,8 @@ $bearlane_modules = [
 	'/inc/sections.php',
 	// Homepage Sections admin UI (Appearance → Homepage Sections).
 	'/inc/admin-sections.php',
+	// Per-page hero / banner / layout meta box (subpages).
+	'/inc/page-meta.php',
 	// Block patterns — one pattern per homepage section.
 	'/inc/block-patterns.php',
 	// Elementor compatibility (safe no-op when plugin absent).

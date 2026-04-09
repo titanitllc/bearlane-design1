@@ -2,37 +2,57 @@
 /**
  * Template Part — Generic Page Content
  *
+ * Renders the page body in a layout-aware wrapper. The banner is
+ * handled by bearlane_render_page_banner() in page.php, so this file
+ * only outputs the block editor / Elementor content. Featured image
+ * rendering is suppressed here because the banner already covers it.
+ *
  * @package BearLane
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 while ( have_posts() ) :
 	the_post();
-?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class( 'page-content' ); ?>>
+	$layout = get_post_meta( get_the_ID(), BEARLANE_PAGE_META_LAYOUT, true ) ?: 'contained';
+	?>
 
-	<?php if ( has_post_thumbnail() ) : ?>
-	<div class="page-content__hero-image">
-		<?php the_post_thumbnail( 'bearlane-wide', [ 'class' => 'page-content__featured-image' ] ); ?>
-	</div>
-	<?php endif; ?>
+	<article id="post-<?php the_ID(); ?>" <?php post_class( 'page-content page-content--' . sanitize_html_class( $layout ) ); ?>>
 
-	<div class="container">
-		<div class="page-content__inner">
-			<h1 class="page-content__title"><?php the_title(); ?></h1>
-			<div class="page-content__body">
+		<?php if ( 'full-width' === $layout ) : ?>
+
+			<div class="page-content__body page-content__body--full">
 				<?php
 				the_content();
 				wp_link_pages( [
-					'before' => '<div class="page-links">' . __( 'Pages:', 'bearlane' ),
+					'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'bearlane' ),
 					'after'  => '</div>',
 				] );
 				?>
 			</div>
-		</div>
-	</div>
 
-</article>
+		<?php else : ?>
 
-<?php
+			<div class="container">
+				<div class="page-content__inner">
+					<div class="page-content__body">
+						<?php
+						the_content();
+						wp_link_pages( [
+							'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'bearlane' ),
+							'after'  => '</div>',
+						] );
+						?>
+					</div>
+				</div>
+			</div>
+
+		<?php endif; ?>
+
+	</article>
+
+	<?php
 endwhile;
