@@ -119,13 +119,21 @@ function bearlane_customizer_register( \WP_Customize_Manager $wp_customize ): vo
 	] );
 
 	// -----------------------------------------------------------------------
-	// Section — Homepage Hero
+	// Section — Homepage Hero (legacy)
 	// -----------------------------------------------------------------------
+	//
+	// As of the sections refactor, the homepage hero is managed from
+	// Appearance → Homepage Sections (inc/sections.php + inc/admin-sections.php).
+	// These Customizer controls are kept only so existing saved values
+	// continue to flow through the one-time seed migration in
+	// bearlane_sections_maybe_seed(). They can be safely removed after
+	// users have migrated.
 
 	$wp_customize->add_section( 'bearlane_hero', [
-		'title'    => __( 'Homepage Hero', 'bearlane' ),
-		'panel'    => 'bearlane_panel',
-		'priority' => 40,
+		'title'       => __( 'Homepage Hero (legacy)', 'bearlane' ),
+		'description' => __( 'Deprecated — edit the homepage hero from Appearance → Homepage Sections instead.', 'bearlane' ),
+		'panel'       => 'bearlane_panel',
+		'priority'    => 40,
 	] );
 
 	$hero_settings = [

@@ -1,0 +1,293 @@
+/*
+ * BearLane Design — Homepage Sections Admin UI
+ *
+ * Visual styling for the Appearance → Homepage Sections page.
+ * Scoped entirely under .bearlane-sections-admin.
+ */
+
+.bearlane-sections-admin {
+	max-width: 1100px;
+}
+
+.bearlane-sections-admin > .description {
+	margin: 0 0 18px;
+	font-size: 13px;
+}
+
+/* ----- Toolbar ----- */
+.bearlane-sections-toolbar {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	margin: 16px 0;
+	padding: 14px 18px;
+	background: #fff;
+	border: 1px solid #dcdcde;
+	border-radius: 6px;
+}
+.bearlane-sections-toolbar--bottom {
+	margin-top: 24px;
+}
+.bearlane-sections-toolbar__hint {
+	color: #646970;
+	font-size: 12px;
+}
+
+/* ----- Sortable Section list ----- */
+.bearlane-sections-list {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.bearlane-section-row {
+	background: #fff;
+	border: 1px solid #dcdcde;
+	border-radius: 6px;
+	margin-bottom: 12px;
+	overflow: hidden;
+}
+.bearlane-section-row.is-dragging {
+	opacity: 0.65;
+	border-color: #2271b1;
+}
+.bearlane-section-row.is-disabled .bearlane-section-row__header {
+	background: #f6f7f7;
+	opacity: 0.7;
+}
+.bearlane-sections-list .ui-sortable-placeholder {
+	visibility: visible !important;
+	background: #f0f6fc;
+	border: 2px dashed #72aee6;
+	border-radius: 6px;
+	margin-bottom: 12px;
+}
+
+/* ----- Section row header ----- */
+.bearlane-section-row__header {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	padding: 16px 18px;
+	cursor: default;
+}
+.bearlane-section-row__handle {
+	cursor: grab;
+	color: #646970;
+	display: inline-flex;
+	padding: 4px;
+}
+.bearlane-section-row__handle:active { cursor: grabbing; }
+.bearlane-section-row__icon .dashicons {
+	font-size: 22px;
+	width: 22px;
+	height: 22px;
+	color: #2271b1;
+}
+.bearlane-section-row__titles {
+	flex: 1;
+	min-width: 0;
+}
+.bearlane-section-row__title {
+	margin: 0;
+	font-size: 15px;
+	font-weight: 600;
+	color: #1d2327;
+}
+.bearlane-section-row__desc {
+	margin: 2px 0 0;
+	color: #646970;
+	font-size: 12px;
+}
+.bearlane-section-row__toggle {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	font-size: 12px;
+	color: #1d2327;
+	white-space: nowrap;
+}
+.bearlane-section-row__toggle input[type="checkbox"] {
+	margin: 0;
+}
+.bearlane-section-row__expand {
+	display: inline-flex !important;
+	align-items: center;
+	gap: 4px;
+}
+.bearlane-section-row__expand .dashicons {
+	transition: transform 0.2s;
+}
+.bearlane-section-row__expand[aria-expanded="true"] .dashicons {
+	transform: rotate(180deg);
+}
+
+/* ----- Section row body ----- */
+.bearlane-section-row__body {
+	padding: 20px 24px 24px;
+	border-top: 1px solid #eaeaea;
+	background: #fbfbfc;
+}
+
+/* ----- Fields ----- */
+.bearlane-field {
+	margin-bottom: 18px;
+}
+.bearlane-field__label {
+	display: block;
+	font-weight: 600;
+	color: #1d2327;
+	margin-bottom: 6px;
+	font-size: 13px;
+}
+.bearlane-field__input {
+	width: 100%;
+	max-width: 640px;
+}
+.bearlane-field__hint,
+.bearlane-field__help {
+	margin-top: 4px;
+	font-size: 12px;
+	color: #646970;
+}
+.bearlane-field--checkbox .bearlane-field__checkbox-label {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	font-weight: 500;
+}
+.bearlane-field--number .bearlane-field__input {
+	width: auto;
+}
+.bearlane-field--svg .bearlane-field__svg {
+	font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+	font-size: 12px;
+}
+.bearlane-field__svg-preview {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 60px;
+	height: 60px;
+	margin-top: 8px;
+	padding: 10px;
+	background: #fff;
+	border: 1px solid #dcdcde;
+	border-radius: 4px;
+	color: #1d2327;
+}
+.bearlane-field__svg-preview svg {
+	width: 100%;
+	height: 100%;
+}
+.bearlane-field__multiselect {
+	width: 100%;
+	max-width: 640px;
+	min-height: 160px;
+}
+
+/* ----- Image field ----- */
+.bearlane-image-field {
+	display: flex;
+	align-items: flex-start;
+	gap: 12px;
+	flex-wrap: wrap;
+}
+.bearlane-image-field__preview {
+	width: 160px;
+	min-height: 100px;
+	background: #fff;
+	border: 1px dashed #c3c4c7;
+	border-radius: 4px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	overflow: hidden;
+}
+.bearlane-image-field__preview img {
+	max-width: 100%;
+	max-height: 200px;
+	display: block;
+}
+.bearlane-image-field__choose,
+.bearlane-image-field__remove {
+	align-self: flex-start;
+}
+
+/* ----- Repeater ----- */
+.bearlane-repeater {
+	background: #fff;
+	border: 1px solid #e5e5e5;
+	border-radius: 6px;
+	padding: 14px;
+}
+.bearlane-repeater__rows {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	margin-bottom: 12px;
+}
+.bearlane-repeater__row {
+	border: 1px solid #dcdcde;
+	border-radius: 5px;
+	background: #fbfbfc;
+	overflow: hidden;
+}
+.bearlane-repeater__row.is-dragging {
+	opacity: 0.7;
+	border-color: #2271b1;
+}
+.bearlane-repeater__row-header {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 8px 12px;
+	background: #f6f7f7;
+	border-bottom: 1px solid #dcdcde;
+	font-size: 12px;
+}
+.bearlane-repeater__row-handle {
+	cursor: grab;
+	color: #646970;
+	display: inline-flex;
+}
+.bearlane-repeater__row-handle:active { cursor: grabbing; }
+.bearlane-repeater__row-index {
+	font-weight: 600;
+	color: #646970;
+}
+.bearlane-repeater__row-remove {
+	margin-left: auto;
+	color: #b32d2e;
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+}
+.bearlane-repeater__row-remove .dashicons {
+	font-size: 16px;
+	width: 16px;
+	height: 16px;
+}
+.bearlane-repeater__row-body {
+	padding: 14px 16px;
+}
+.bearlane-repeater__row-body .bearlane-field {
+	margin-bottom: 12px;
+}
+.bearlane-repeater__row-body .bearlane-field:last-child {
+	margin-bottom: 0;
+}
+.bearlane-repeater__add {
+	display: inline-flex !important;
+	align-items: center;
+	gap: 4px;
+}
+.bearlane-repeater__template {
+	display: none;
+}
+
+/* Nested repeaters inherit the same look but compact. */
+.bearlane-repeater .bearlane-repeater {
+	padding: 10px;
+	background: #f6f7f7;
+}

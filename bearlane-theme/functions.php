@@ -6,7 +6,7 @@
  * Keep this file clean; add functionality in the relevant inc file.
  *
  * @package BearLane
- * @version 1.0.0
+ * @version 1.1.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Theme version constant — bump when releasing updates.
-define( 'BEARLANE_VERSION', '1.0.0' );
+define( 'BEARLANE_VERSION', '1.1.0' );
 define( 'BEARLANE_DIR', get_template_directory() );
 define( 'BEARLANE_URI', get_template_directory_uri() );
 
@@ -29,6 +29,17 @@ $bearlane_modules = [
 	'/inc/customizer.php',
 	'/inc/blocks.php',
 	'/inc/nav-fallback.php',
+	// Homepage sections engine — UI-driven registry, getters,
+	// sanitization, and seed migration from legacy Customizer values.
+	'/inc/sections.php',
+	// Homepage Sections admin UI (Appearance → Homepage Sections).
+	'/inc/admin-sections.php',
+	// Per-page hero / banner / layout meta box (subpages).
+	'/inc/page-meta.php',
+	// Block patterns — one pattern per homepage section.
+	'/inc/block-patterns.php',
+	// Elementor compatibility (safe no-op when plugin absent).
+	'/inc/elementor-compat.php',
 ];
 
 foreach ( $bearlane_modules as $module ) {

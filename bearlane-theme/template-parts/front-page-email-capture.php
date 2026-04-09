@@ -2,10 +2,25 @@
 /**
  * Template Part — Email Capture Section
  *
- * Offer-driven newsletter/lead capture for custom orders and promos.
+ * Driven by bearlane_sections → email_capture.
  *
  * @package BearLane
  */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+$content = bearlane_current_section_content( 'email_capture' );
+
+$eyebrow       = (string) ( $content['eyebrow'] ?? '' );
+$heading       = (string) ( $content['heading'] ?? '' );
+$description   = (string) ( $content['description'] ?? '' );
+$benefits      = (array)  ( $content['benefits'] ?? [] );
+$name_ph       = (string) ( $content['name_placeholder'] ?? '' );
+$email_ph      = (string) ( $content['email_placeholder'] ?? '' );
+$submit_label  = (string) ( $content['submit_label'] ?? '' );
+$privacy_note  = (string) ( $content['privacy_note'] ?? '' );
 ?>
 
 <section class="section email-capture-section" aria-label="<?php esc_attr_e( 'Sign up for offers', 'bearlane' ); ?>">
@@ -13,25 +28,25 @@
 		<div class="email-capture-inner">
 
 			<div class="email-capture__text">
-				<div class="section__eyebrow section__eyebrow--accent"><?php esc_html_e( 'Exclusive Offer', 'bearlane' ); ?></div>
-				<h2 class="email-capture__title"><?php esc_html_e( 'Get 10% Off Your First Custom Order', 'bearlane' ); ?></h2>
-				<p class="email-capture__desc">
-					<?php esc_html_e( 'Sign up and we\'ll send you a promo code, plus early access to new styles, seasonal sales, and embroidery design inspiration.', 'bearlane' ); ?>
-				</p>
+				<?php if ( $eyebrow ) : ?>
+				<div class="section__eyebrow section__eyebrow--accent"><?php echo esc_html( $eyebrow ); ?></div>
+				<?php endif; ?>
+				<?php if ( $heading ) : ?>
+				<h2 class="email-capture__title"><?php echo esc_html( $heading ); ?></h2>
+				<?php endif; ?>
+				<?php if ( $description ) : ?>
+				<p class="email-capture__desc"><?php echo esc_html( $description ); ?></p>
+				<?php endif; ?>
+				<?php if ( ! empty( $benefits ) ) : ?>
 				<ul class="email-capture__benefits" role="list">
+					<?php foreach ( $benefits as $benefit ) : ?>
 					<li>
 						<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-						<?php esc_html_e( '10% off your first order', 'bearlane' ); ?>
+						<?php echo esc_html( (string) ( $benefit['label'] ?? '' ) ); ?>
 					</li>
-					<li>
-						<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-						<?php esc_html_e( 'New arrivals before anyone else', 'bearlane' ); ?>
-					</li>
-					<li>
-						<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
-						<?php esc_html_e( 'Bulk order tips and design ideas', 'bearlane' ); ?>
-					</li>
+					<?php endforeach; ?>
 				</ul>
+				<?php endif; ?>
 			</div>
 
 			<div class="email-capture__form-wrap">
@@ -47,7 +62,7 @@
 								id="email-capture-name"
 								name="first_name"
 								class="email-capture-form__input"
-								placeholder="<?php esc_attr_e( 'First name', 'bearlane' ); ?>"
+								placeholder="<?php echo esc_attr( $name_ph ); ?>"
 								autocomplete="given-name">
 						</div>
 						<div class="email-capture-form__field">
@@ -58,19 +73,23 @@
 								id="email-capture-email"
 								name="email"
 								class="email-capture-form__input newsletter-form__input"
-								placeholder="<?php esc_attr_e( 'Email address', 'bearlane' ); ?>"
+								placeholder="<?php echo esc_attr( $email_ph ); ?>"
 								required
 								autocomplete="email">
 						</div>
 					</div>
 
+					<?php if ( $submit_label ) : ?>
 					<button type="submit" class="btn btn--primary btn--full newsletter-form__btn">
-						<?php esc_html_e( 'Claim My 10% Discount', 'bearlane' ); ?>
+						<?php echo esc_html( $submit_label ); ?>
 					</button>
+					<?php endif; ?>
 
+					<?php if ( $privacy_note ) : ?>
 					<p class="email-capture-form__privacy">
-						<?php esc_html_e( 'No spam, ever. Unsubscribe any time.', 'bearlane' ); ?>
+						<?php echo esc_html( $privacy_note ); ?>
 					</p>
+					<?php endif; ?>
 
 				</form>
 			</div>
