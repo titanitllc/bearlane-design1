@@ -29,6 +29,9 @@ $bearlane_modules = [
 	'/inc/customizer.php',
 	'/inc/blocks.php',
 	'/inc/nav-fallback.php',
+	// Homepage sections engine — UI-driven registry, getters,
+	// sanitization, and seed migration from legacy Customizer values.
+	'/inc/sections.php',
 ];
 
 foreach ( $bearlane_modules as $module ) {
