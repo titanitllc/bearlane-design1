@@ -86,7 +86,7 @@ Loaded in order by `functions.php`. Each module owns a single concern.
 | `theme-setup.php` | `after_setup_theme` supports, nav menu locations, widget areas, image sizes | Unchanged |
 | `enqueue.php` | Enqueues styles, scripts, and Google Fonts; handles deferral, versioning, localization | Unchanged |
 | `helpers.php` | Reusable template helpers (SVG icon, breadcrumbs, rating stars, currency formatting) | Unchanged |
-| `woocommerce.php` | WC hooks, custom loop markup, AJAX quick-view and product filter endpoints, mini-cart fragments, embroidery customization fields, production notice, product trust strip, order meta | Unchanged |
+| `woocommerce.php` | WC hooks, custom loop markup, AJAX quick-view and product filter endpoints, mini-cart fragments, per-product embroidery toggle (admin tab + panel), embroidery customization fields, production notice, product trust strip, order meta | Updated |
 | `customizer.php` | Colours, typography, footer, announcement bar. The old Homepage Hero section is retained as "Homepage Hero (legacy)" solely for the one-time seed migration | **Updated v1.1** |
 | `blocks.php` | Registers custom Gutenberg block styles and editor setup | Unchanged |
 | `nav-fallback.php` | Fallback navigation menu shown to admins when no menu is assigned | Unchanged |
@@ -224,6 +224,7 @@ All new functionality should go into the relevant `inc/` file — do not add cod
 - **Bulk Order Section** — dark section targeting teams, businesses, schools, events with perks list and use-case grid
 - **FAQ Accordion** — 8 common embroidery questions with accessible keyboard navigation
 - **Email Capture** — 2-column section with 10% first-order offer and benefit checklist
+- **Per-product embroidery toggle** — "Embroidery" tab in the WooCommerce Product Data panel with an "Enable embroidery" checkbox (`_bearlane_enable_embroidery` meta). When checked, the embroidery customization panel and production time notice are shown on that product's page.
 - **Embroidery Customization Panel** on product pages: placement selector, 16-color thread swatch picker, personalization text field, special instructions textarea, artwork upload guidance
 - **Production Time Notice** on product pages (customizable per-product via `_production_days` meta)
 - **Trust Strip** below add-to-cart (proof approval, satisfaction guarantee, SSL)
@@ -243,7 +244,10 @@ All new functionality should go into the relevant `inc/` file — do not add cod
 | `woocommerce_add_to_cart_fragments` | Filter | Extended to refresh the `.cart-count` bubble |
 | `wp_ajax_bearlane_quick_view` | Action | AJAX endpoint powering the Quick View modal |
 | `wp_ajax_bearlane_filter_products` | Action | AJAX endpoint powering product filtering |
-| `woocommerce_before_add_to_cart_button` | Action | Injects production notice (priority 1) and embroidery options panel (priority 5) |
+| `woocommerce_product_data_tabs` | Filter | Adds the "Embroidery" tab to the Product Data panel |
+| `woocommerce_product_data_panels` | Action | Renders the "Enable embroidery" checkbox panel |
+| `woocommerce_process_product_meta` | Action | Saves the `_bearlane_enable_embroidery` toggle on product save |
+| `woocommerce_before_add_to_cart_button` | Action | Injects production notice (priority 1) and embroidery options panel (priority 5) — only when embroidery is enabled for the product |
 | `woocommerce_after_add_to_cart_button` | Action | Injects product trust strip |
 | `woocommerce_add_cart_item_data` | Filter | Saves embroidery customization data to cart item |
 | `woocommerce_get_item_data` | Filter | Displays embroidery data in cart/checkout summary |
@@ -280,9 +284,10 @@ All new functionality should go into the relevant `inc/` file — do not add cod
 
 | Meta key | Type | Purpose |
 |---|---|---|
+| `_bearlane_enable_embroidery` | `yes` / `no` | Show embroidery customization panel and production notice on this product |
 | `_production_days` | string | Override default "10–14 business days" notice per product |
 
-Set via **Products → Edit → Custom Fields** in wp-admin or programmatically.
+`_bearlane_enable_embroidery` is managed via the **Embroidery** tab in the WooCommerce Product Data panel (Products → Edit → Product Data → Embroidery). `_production_days` can be set via Custom Fields or programmatically.
 
 ---
 
@@ -371,6 +376,12 @@ All homepage content is admin-editable as of v1.1 — **no PHP editing is requir
 | Embroidery placement options | `bearlane-theme/inc/woocommerce.php` — `$placements` array |
 | Production time (global default) | `bearlane-theme/inc/woocommerce.php` — default string in `bearlane_production_notice()` |
 | Production time (per product) | wp-admin → Products → Edit → Custom Fields → `_production_days` |
+
+### Product-level (UI-editable)
+
+| Area | Where to edit |
+|---|---|
+| Enable / disable embroidery on a product | Products → Edit → Product Data → Embroidery tab → "Enable embroidery" checkbox |
 | Product card layout | `bearlane-theme/template-parts/product-card.php` |
 | Block styles (editor) | `bearlane-theme/inc/blocks.php` |
 | Add a brand-new homepage section | Create a new schema file in `inc/section-defaults/` and a matching template part — no other wiring required |
@@ -399,7 +410,7 @@ All homepage content is admin-editable as of v1.1 — **no PHP editing is requir
 - **Rush order checkout option**: Add a rush fee product or fee to checkout based on delivery deadline.
 - **Bulk order form page**: A dedicated `/bulk-orders` page with a custom inquiry form (name, company, quantity, design details).
 - **Proof approval portal**: A custom My Account endpoint showing proofs awaiting customer approval.
-- **Conditional embroidery fields**: Show/hide placement and thread options based on product category.
+- **Conditional embroidery fields**: Show/hide individual placement and thread options based on product category (the per-product enable toggle is now implemented).
 - **Admin order status labels**: Custom WooCommerce order statuses (Awaiting Proof, Proof Approved, In Production, QC Check, Shipped).
 - **Thread color image swatch**: Replace hex swatches with actual thread spool photography for accuracy.
 - **Multi-placement orders**: Allow multiple embroidery positions per shirt (e.g., left chest + sleeve) in a single cart add.
@@ -409,7 +420,7 @@ All homepage content is admin-editable as of v1.1 — **no PHP editing is requir
 
 ### Known limitations
 - The email capture form does not currently integrate with any ESP (Mailchimp, Klaviyo, etc.) — it shows a success state only. A backend integration or Mailchimp for WooCommerce is required for real list building.
-- The embroidery customization fields are not validated server-side for required values — placement and thread color are optional from WC's perspective. Add WooCommerce validation if they should be required.
+- The embroidery customization fields are not validated server-side for required values — placement and thread color are optional from WC's perspective. Add WooCommerce validation if they should be required. Embroidery must be explicitly enabled per-product via the Product Data → Embroidery tab.
 - Dark mode does not invert the embroidery showcase section (which is intentionally dark) — verified working, no issue.
 - Thread colours and embroidery placements are still defined in PHP (`inc/woocommerce.php`); they are not yet part of the sections admin UI.
 
@@ -566,8 +577,9 @@ The v1.0 template was a solid foundation but generic — it lacked embroidery-sp
 - Newsletter form now handles multiple instances (footer + email capture)
 
 ### WooCommerce PHP additions (inc/woocommerce.php)
-- `bearlane_production_notice()` — injects production time notice on product pages
-- `bearlane_embroidery_options()` — injects customization panel (placement, thread color, text, notes, artwork info)
+- `bearlane_embroidery_product_tab()` / `bearlane_embroidery_product_panel()` / `bearlane_save_embroidery_toggle()` — per-product "Enable embroidery" toggle in the WooCommerce Product Data panel
+- `bearlane_production_notice()` — injects production time notice on product pages (only when embroidery is enabled)
+- `bearlane_embroidery_options()` — injects customization panel (placement, thread color, text, notes, artwork info) (only when embroidery is enabled)
 - `bearlane_save_embroidery_data()` — saves fields to cart item data
 - `bearlane_display_embroidery_data()` — shows embroidery meta in cart/checkout
 - `bearlane_add_embroidery_to_order()` — persists to WC order line item meta
