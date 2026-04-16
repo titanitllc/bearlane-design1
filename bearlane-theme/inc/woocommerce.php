@@ -244,13 +244,47 @@ function bearlane_ajax_filter_products(): void {
 }
 
 // ---------------------------------------------------------------------------
+// Embroidery — Admin: per-product toggle
+// ---------------------------------------------------------------------------
+
+add_filter( 'woocommerce_product_data_tabs', 'bearlane_embroidery_product_tab' );
+
+function bearlane_embroidery_product_tab( array $tabs ): array {
+	$tabs['bearlane_embroidery'] = [
+		'label'    => __( 'Embroidery', 'bearlane' ),
+		'target'   => 'bearlane_embroidery_panel',
+		'class'    => [ 'show_if_simple', 'show_if_variable' ],
+		'priority' => 75,
+	];
+	return $tabs;
+}
+
+add_action( 'woocommerce_product_data_panels', 'bearlane_embroidery_product_panel' );
+
+function bearlane_embroidery_product_panel(): void {
+	echo '<div id="bearlane_embroidery_panel" class="panel woocommerce_options_panel">';
+	woocommerce_wp_checkbox( [
+		'id'          => '_bearlane_enable_embroidery',
+		'label'       => __( 'Enable embroidery', 'bearlane' ),
+		'description' => __( 'Show the embroidery customization options on this product page.', 'bearlane' ),
+	] );
+	echo '</div>';
+}
+
+add_action( 'woocommerce_process_product_meta', 'bearlane_save_embroidery_toggle' );
+
+function bearlane_save_embroidery_toggle( int $post_id ): void {
+	$enabled = isset( $_POST['_bearlane_enable_embroidery'] ) ? 'yes' : 'no';
+	update_post_meta( $post_id, '_bearlane_enable_embroidery', $enabled );
+}
+
+// ---------------------------------------------------------------------------
 // Embroidery Customization Fields on Product Page
 // ---------------------------------------------------------------------------
 
 /**
  * Output embroidery customization options below the short description.
- * Only shown on products in the "custom-embroidery" category or tagged
- * "embroidered". Falls back to showing on all products if no taxonomy match.
+ * Only shown when the per-product "Enable embroidery" toggle is checked.
  */
 add_action( 'woocommerce_before_add_to_cart_button', 'bearlane_embroidery_options', 5 );
 
@@ -260,8 +294,7 @@ function bearlane_embroidery_options(): void {
 		return;
 	}
 
-	// Only show on simple or variable products (not bundles / grouped).
-	if ( ! in_array( $product->get_type(), [ 'simple', 'variable' ], true ) ) {
+	if ( 'yes' !== get_post_meta( $product->get_id(), '_bearlane_enable_embroidery', true ) ) {
 		return;
 	}
 
@@ -467,6 +500,10 @@ add_action( 'woocommerce_before_add_to_cart_button', 'bearlane_production_notice
 function bearlane_production_notice(): void {
 	global $product;
 	if ( ! $product instanceof \WC_Product ) {
+		return;
+	}
+
+	if ( 'yes' !== get_post_meta( $product->get_id(), '_bearlane_enable_embroidery', true ) ) {
 		return;
 	}
 
