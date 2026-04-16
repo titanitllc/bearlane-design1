@@ -37,7 +37,8 @@
 .woocommerce button.button,
 .woocommerce input.button,
 .woocommerce #respond input#submit,
-.mini-cart a.button {
+.mini-cart a.button,
+.woocommerce a.wc-forward {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -58,7 +59,8 @@
 .woocommerce button.button:hover,
 .woocommerce input.button:hover,
 .woocommerce #respond input#submit:hover,
-.mini-cart a.button:hover {
+.mini-cart a.button:hover,
+.woocommerce a.wc-forward:hover {
   background-color: var(--color-accent-hover);
   color: var(--color-bg) !important;
 }
@@ -321,7 +323,26 @@ table.shop_table img { width: 64px; height: 64px; object-fit: cover; border-radi
   padding-top: var(--space-4);
 }
 .wc-proceed-to-checkout { margin-top: var(--space-5); }
-.wc-proceed-to-checkout a.checkout-button { width: 100%; font-size: var(--font-size-md) !important; padding: var(--space-4) !important; }
+.wc-proceed-to-checkout a.checkout-button {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  font-size: var(--font-size-md) !important;
+  font-weight: var(--font-weight-semibold) !important;
+  padding: var(--space-4) !important;
+  border-radius: var(--radius-full) !important;
+  background-color: var(--color-accent) !important;
+  color: #fff !important;
+  border: 1.5px solid var(--color-accent) !important;
+  text-decoration: none !important;
+  letter-spacing: 0.01em;
+}
+.wc-proceed-to-checkout a.checkout-button:hover {
+  background-color: var(--color-accent-hover) !important;
+  border-color: var(--color-accent-hover) !important;
+  color: #fff !important;
+}
 
 /* ============================================================
    Checkout
@@ -449,59 +470,78 @@ table.shop_table img { width: 64px; height: 64px; object-fit: cover; border-radi
   display: flex;
   justify-content: space-between;
 }
+#mini-cart .woocommerce-mini-cart__buttons,
 p.woocommerce-mini-cart__buttons.buttons {
-  display: flex;
+  display: flex !important;
   flex-direction: column;
   gap: var(--space-3);
   margin-top: var(--space-4);
   padding-top: var(--space-4);
   border-top: 1px solid var(--color-border);
 }
-p.woocommerce-mini-cart__buttons a.button {
+#mini-cart .woocommerce-mini-cart__buttons a,
+#mini-cart .woocommerce-mini-cart__buttons a.button,
+p.woocommerce-mini-cart__buttons a.button,
+.widget_shopping_cart .buttons a {
   display: inline-flex !important;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
   padding: var(--space-3) var(--space-6) !important;
-  font-family: var(--font-sans);
+  font-family: var(--font-sans) !important;
   font-size: var(--font-size-sm) !important;
-  font-weight: var(--font-weight-semibold);
-  line-height: 1.4;
+  font-weight: var(--font-weight-semibold) !important;
+  line-height: 1.4 !important;
   border-radius: var(--radius-full) !important;
-  border: 1.5px solid transparent;
+  border: 1.5px solid transparent !important;
   cursor: pointer;
   text-align: center;
   text-decoration: none !important;
   white-space: nowrap;
   user-select: none;
+  box-sizing: border-box;
   transition: background-color var(--transition-fast),
               color var(--transition-fast),
               border-color var(--transition-fast),
               box-shadow var(--transition-fast),
               transform var(--transition-fast);
 }
+#mini-cart .woocommerce-mini-cart__buttons a:active,
 p.woocommerce-mini-cart__buttons a.button:active { transform: translateY(1px); }
+#mini-cart .woocommerce-mini-cart__buttons a:focus-visible,
 p.woocommerce-mini-cart__buttons a.button:focus-visible {
   outline: 2px solid var(--color-border-focus);
   outline-offset: 2px;
 }
-p.woocommerce-mini-cart__buttons a.button.checkout {
+#mini-cart .woocommerce-mini-cart__buttons a.checkout,
+#mini-cart .woocommerce-mini-cart__buttons a.button.checkout,
+p.woocommerce-mini-cart__buttons a.button.checkout,
+.widget_shopping_cart .buttons a.checkout {
   background-color: var(--color-accent) !important;
   color: #fff !important;
   border-color: var(--color-accent) !important;
   letter-spacing: 0.01em;
 }
-p.woocommerce-mini-cart__buttons a.button.checkout:hover {
+#mini-cart .woocommerce-mini-cart__buttons a.checkout:hover,
+#mini-cart .woocommerce-mini-cart__buttons a.button.checkout:hover,
+p.woocommerce-mini-cart__buttons a.button.checkout:hover,
+.widget_shopping_cart .buttons a.checkout:hover {
   background-color: var(--color-accent-hover) !important;
   border-color: var(--color-accent-hover) !important;
   color: #fff !important;
 }
-p.woocommerce-mini-cart__buttons a.button:not(.checkout) {
+#mini-cart .woocommerce-mini-cart__buttons a:not(.checkout),
+#mini-cart .woocommerce-mini-cart__buttons a.button:not(.checkout),
+p.woocommerce-mini-cart__buttons a.button:not(.checkout),
+.widget_shopping_cart .buttons a:not(.checkout) {
   background-color: transparent !important;
   color: var(--color-accent) !important;
   border-color: var(--color-accent) !important;
 }
-p.woocommerce-mini-cart__buttons a.button:not(.checkout):hover {
+#mini-cart .woocommerce-mini-cart__buttons a:not(.checkout):hover,
+#mini-cart .woocommerce-mini-cart__buttons a.button:not(.checkout):hover,
+p.woocommerce-mini-cart__buttons a.button:not(.checkout):hover,
+.widget_shopping_cart .buttons a:not(.checkout):hover {
   background-color: var(--color-accent) !important;
   color: #fff !important;
 }

@@ -124,6 +124,24 @@ add_filter( 'elementor/theme/need_override_location', '__return_true' );
 add_filter( 'elementor/frontend/the_content', function ( $content ) { return $content; } );
 
 /* =============================================================
+ * MIXED CONTENT FIX
+ * ============================================================= */
+
+/**
+ * Force HTTPS on enqueued style and script URLs when the site is
+ * served over SSL. Prevents mixed-content browser warnings caused
+ * by Elementor (or other plugins) storing asset URLs with http://.
+ */
+function bearlane_force_ssl_asset_urls( string $src ): string {
+	if ( is_ssl() && str_starts_with( $src, 'http://' ) ) {
+		$src = 'https://' . substr( $src, 7 );
+	}
+	return $src;
+}
+add_filter( 'style_loader_src',  'bearlane_force_ssl_asset_urls', 20 );
+add_filter( 'script_loader_src', 'bearlane_force_ssl_asset_urls', 20 );
+
+/* =============================================================
  * BLOCK EDITOR / GUTENBERG FALLBACK
  * ============================================================= */
 
