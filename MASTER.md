@@ -87,8 +87,8 @@ Loaded in order by `functions.php`. Each module owns a single concern.
 | `enqueue.php` | Enqueues styles, scripts, and Google Fonts; handles deferral, versioning, localization | Unchanged |
 | `helpers.php` | Reusable template helpers (SVG icon, breadcrumbs, rating stars, currency formatting) | Unchanged |
 | `woocommerce.php` | WC hooks, custom loop markup, AJAX quick-view and product filter endpoints, mini-cart fragments, per-product embroidery toggle (admin tab + panel), embroidery customization fields, production notice, product trust strip, order meta | Updated |
-| `customizer.php` | Colours, typography, footer, announcement bar. The old Homepage Hero section is retained as "Homepage Hero (legacy)" solely for the one-time seed migration | **Updated v1.1** |
-| `blocks.php` | Registers custom Gutenberg block styles and editor setup | Unchanged |
+| `customizer.php` | Central theme colours (primary navy, secondary green, heading, text, background, surface, border), header navigation/action/CTA/mobile colour overrides, typography, footer, announcement bar. The old Homepage Hero section is retained as "Homepage Hero (legacy)" solely for the one-time seed migration | **Updated v1.2** |
+| `blocks.php` | Registers custom Gutenberg block styles and editor setup; syncs primary/secondary brand palette to the block editor | **Updated v1.2** |
 | `nav-fallback.php` | Fallback navigation menu shown to admins when no menu is assigned | Unchanged |
 | `sections.php` | Homepage sections registry, getter API (`bearlane_sections_data` / `bearlane_section_field` / `bearlane_section_content` / `bearlane_section_is_enabled` / `bearlane_sections_active_ids`), sanitizer for all 13 field types, dispatcher `bearlane_render_section()`, and one-time seed migration from legacy Customizer values | **New v1.1** |
 | `admin-sections.php` | Registers **Appearance → Homepage Sections** — drag-drop ordering, enable toggles, field renderers (text, textarea, richtext, url, number, select, checkbox, color, image, svg, product_ids, category_ids, repeater), save handler with nonce + capability check | **New v1.1** |
@@ -151,9 +151,9 @@ Every `front-page-*.php` file now reads its content from the sections registry v
 
 | File | Purpose | Status |
 |---|---|---|
-| `css/main.css` | Full theme stylesheet — design tokens, layout, components, dark mode, print, embroidery sections | Unchanged |
+| `css/main.css` | Full theme stylesheet — brand colour tokens (`--color-primary`, `--color-secondary`), semantic tokens, layout, components, dark mode, print, embroidery sections | **Updated v1.2** |
 | `css/woocommerce.css` | WooCommerce overrides — cart, checkout, my-account, product pages, embroidery options, sticky ATC | Unchanged |
-| `css/editor.css` | Gutenberg editor styles so admin matches the front end | Unchanged |
+| `css/editor.css` | Gutenberg editor styles — synced with brand colour tokens so admin matches the front end | **Updated v1.2** |
 | `css/admin-sections.css` | Styles for the Appearance → Homepage Sections admin page (sortable rows, repeaters, image/SVG fields, disabled state) | **New v1.1** |
 | `js/main.js` | Core JS + FAQ accordion, product tabs, sticky ATC, thread swatch selection, scroll-reveal | Unchanged |
 | `js/woocommerce.js` | Quick-view modal, AJAX product filtering, add-to-cart UI updates | Unchanged |
@@ -268,15 +268,31 @@ All new functionality should go into the relevant `inc/` file — do not add cod
 
 ---
 
-## Design Tokens (v1.0.1 additions)
+## Design Tokens
+
+### Brand palette (v1.2 — derived from logo)
+
+| Token | Default | Use |
+|---|---|---|
+| `--color-primary` | `#1B2D42` (Navy) | Headings, dark sections, hero/footer backgrounds, text |
+| `--color-primary-hover` | `#263D56` | Lighter navy for hover states and gradients |
+| `--color-secondary` | `#3D8B37` (Green) | Buttons, links, CTAs, interactive accents |
+| `--color-secondary-hover` | `#2D6B29` | Darker green for hover states |
+| `--color-accent` | `var(--color-secondary)` | Alias — all existing accent references resolve to secondary |
+| `--color-accent-hover` | `var(--color-secondary-hover)` | Alias — accent hover resolves to secondary hover |
+| `--color-heading` | `var(--color-primary)` | Heading text colour |
+
+All brand tokens are editable from **Customizer → BearLane Design → Theme Colours**. Changing primary/secondary there cascades to every component (nav, CTA buttons, mobile nav, focus states, etc.) via CSS custom property inheritance.
+
+### Embroidery tokens (v1.0.1)
 
 | Token | Value | Use |
 |---|---|---|
 | `--color-gold` | `#c9a84c` | Embroidery accent, CTAs, badges, star highlights |
 | `--color-gold-light` | `#f0e0a8` | Light gold for dark-background eyebrows |
 | `--color-gold-dark` | `#a07828` | Gold hover state |
-| `--color-dark-bg` | `#111827` | Dark sections (showcase, bulk order) |
-| `--color-dark-surface` | `#1f2937` | Dark section card backgrounds |
+| `--color-dark-bg` | `var(--color-primary)` | Dark sections (showcase, bulk order) — now inherits from brand primary |
+| `--color-dark-surface` | `var(--color-primary-hover)` | Dark section card backgrounds — now inherits from brand primary hover |
 
 ---
 
@@ -362,7 +378,11 @@ All homepage content is admin-editable as of v1.1 — **no PHP editing is requir
 | Email Capture — heading, benefits, placeholders, submit label, privacy note | Appearance → Homepage Sections → Email Capture |
 | Section order / visibility | Drag + toggles on the Appearance → Homepage Sections page |
 | Per-page banner style, title, subtitle, image, layout | Page editor → "BearLane Page Options" sidebar meta box |
-| Brand colours | Customizer → BearLane Design → Colours |
+| Brand colours (primary navy, secondary green, heading, text, backgrounds, border) | Customizer → BearLane Design → Theme Colours |
+| Header navigation colours | Customizer → BearLane Design → Header Navigation Colours |
+| Header action icon colours | Customizer → BearLane Design → Header Action Icon Colours |
+| Header CTA button colours | Customizer → BearLane Design → Header CTA Button Colours |
+| Mobile navigation colours | Customizer → BearLane Design → Mobile Navigation Colours |
 | Typography | Customizer → BearLane Design → Typography |
 | Footer copyright | Customizer → BearLane Design → Footer Settings |
 | Announcement bar | Customizer → BearLane Design → Announcement Bar |
