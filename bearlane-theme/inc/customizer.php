@@ -422,72 +422,71 @@ add_action( 'wp_head', 'bearlane_customizer_css', 99 );
  * @return string
  */
 function bearlane_get_customizer_css(): string {
-	$primary   = get_theme_mod( 'bearlane_primary_color',   '#1B2D42' );
-	$secondary = get_theme_mod( 'bearlane_secondary_color', '#3D8B37' );
+	$primary    = get_theme_mod( 'bearlane_primary_color',   '#1B2D42' );
+	$pri_hover  = get_theme_mod( 'bearlane_primary_hover',   '#263D56' );
+	$secondary  = get_theme_mod( 'bearlane_secondary_color', '#3D8B37' );
+	$sec_hover  = get_theme_mod( 'bearlane_secondary_hover', '#2D6B29' );
+	$surface_2  = get_theme_mod( 'bearlane_surface_2_color', '#E8EEF1' );
 
 	$vars = [
-		'--color-primary'       => $primary,
-		'--color-primary-hover' => get_theme_mod( 'bearlane_primary_hover',   '#263D56' ),
-		'--color-secondary'     => $secondary,
-		'--color-secondary-hover' => get_theme_mod( 'bearlane_secondary_hover', '#2D6B29' ),
-		'--color-accent'        => $secondary,
-		'--color-accent-hover'  => get_theme_mod( 'bearlane_secondary_hover', '#2D6B29' ),
-		'--color-heading'       => get_theme_mod( 'bearlane_heading_color',   '#1B2D42' ),
-		'--color-text'          => get_theme_mod( 'bearlane_text_primary',    '#1B2D42' ),
-		'--color-text-muted'    => get_theme_mod( 'bearlane_text_secondary',  '#5e6a75' ),
-		'--color-bg'            => get_theme_mod( 'bearlane_bg_color',        '#F2F4F5' ),
-		'--color-surface'       => get_theme_mod( 'bearlane_surface_color',   '#ffffff' ),
-		'--color-surface-2'     => get_theme_mod( 'bearlane_surface_2_color', '#E8EEF1' ),
-		'--color-border'        => get_theme_mod( 'bearlane_border_color',    '#d5dde2' ),
-		'--font-size-base'      => get_theme_mod( 'bearlane_font_size_base',  '16' ) . 'px',
+		'--color-primary'         => $primary,
+		'--color-primary-hover'   => $pri_hover,
+		'--color-secondary'       => $secondary,
+		'--color-secondary-hover' => $sec_hover,
+		'--color-accent'          => $secondary,
+		'--color-accent-hover'    => $sec_hover,
+		'--color-heading'         => get_theme_mod( 'bearlane_heading_color',   '#1B2D42' ),
+		'--color-text'            => get_theme_mod( 'bearlane_text_primary',    '#1B2D42' ),
+		'--color-text-muted'      => get_theme_mod( 'bearlane_text_secondary',  '#5e6a75' ),
+		'--color-bg'              => get_theme_mod( 'bearlane_bg_color',        '#F2F4F5' ),
+		'--color-surface'         => get_theme_mod( 'bearlane_surface_color',   '#ffffff' ),
+		'--color-surface-2'       => $surface_2,
+		'--color-border'          => get_theme_mod( 'bearlane_border_color',    '#d5dde2' ),
+		'--font-size-base'        => get_theme_mod( 'bearlane_font_size_base',  '16' ) . 'px',
 	];
 
-	// Header navigation tokens.
-	$header_token_map = [
-		// Primary desktop nav.
-		'--header-nav-text'              => 'bearlane_header_nav_text',
-		'--header-nav-bg'                => 'bearlane_header_nav_bg',
-		'--header-nav-border'            => 'bearlane_header_nav_border',
-		'--header-nav-hover-text'        => 'bearlane_header_nav_hover_text',
-		'--header-nav-hover-bg'          => 'bearlane_header_nav_hover_bg',
-		'--header-nav-hover-border'      => 'bearlane_header_nav_hover_border',
-		'--header-nav-active-text'       => 'bearlane_header_nav_active_text',
-		'--header-nav-active-bg'         => 'bearlane_header_nav_active_bg',
-		'--header-nav-active-border'     => 'bearlane_header_nav_active_border',
-		// Header action icons.
-		'--header-action-text'           => 'bearlane_header_action_text',
-		'--header-action-bg'             => 'bearlane_header_action_bg',
-		'--header-action-border'         => 'bearlane_header_action_border',
-		'--header-action-hover-text'     => 'bearlane_header_action_hover_text',
-		'--header-action-hover-bg'       => 'bearlane_header_action_hover_bg',
-		'--header-action-hover-border'   => 'bearlane_header_action_hover_border',
-		'--header-action-active-text'    => 'bearlane_header_action_active_text',
-		'--header-action-active-bg'      => 'bearlane_header_action_active_bg',
-		'--header-action-active-border'  => 'bearlane_header_action_active_border',
-		// CTA buttons.
-		'--header-cta-text'              => 'bearlane_header_cta_text',
-		'--header-cta-bg'                => 'bearlane_header_cta_bg',
-		'--header-cta-border'            => 'bearlane_header_cta_border',
-		'--header-cta-hover-text'        => 'bearlane_header_cta_hover_text',
-		'--header-cta-hover-bg'          => 'bearlane_header_cta_hover_bg',
-		'--header-cta-hover-border'      => 'bearlane_header_cta_hover_border',
-		// Mobile nav.
-		'--mobile-nav-text'              => 'bearlane_mobile_nav_text',
-		'--mobile-nav-bg'                => 'bearlane_mobile_nav_bg',
-		'--mobile-nav-border'            => 'bearlane_mobile_nav_border',
-		'--mobile-nav-hover-text'        => 'bearlane_mobile_nav_hover_text',
-		'--mobile-nav-hover-bg'          => 'bearlane_mobile_nav_hover_bg',
-		'--mobile-nav-hover-border'      => 'bearlane_mobile_nav_hover_border',
-		'--mobile-nav-active-text'       => 'bearlane_mobile_nav_active_text',
-		'--mobile-nav-active-bg'         => 'bearlane_mobile_nav_active_bg',
-		'--mobile-nav-active-border'     => 'bearlane_mobile_nav_active_border',
+	// Header navigation tokens — always output with brand-aware defaults
+	// so they never depend on var(--color-text) resolution (which may be
+	// overridden by stale theme_mods or Elementor global styles).
+	$header_tokens = [
+		'--header-nav-text'              => [ 'bearlane_header_nav_text',          $primary ],
+		'--header-nav-bg'                => [ 'bearlane_header_nav_bg',            'transparent' ],
+		'--header-nav-border'            => [ 'bearlane_header_nav_border',        'transparent' ],
+		'--header-nav-hover-text'        => [ 'bearlane_header_nav_hover_text',    $secondary ],
+		'--header-nav-hover-bg'          => [ 'bearlane_header_nav_hover_bg',      $surface_2 ],
+		'--header-nav-hover-border'      => [ 'bearlane_header_nav_hover_border',  'transparent' ],
+		'--header-nav-active-text'       => [ 'bearlane_header_nav_active_text',   $secondary ],
+		'--header-nav-active-bg'         => [ 'bearlane_header_nav_active_bg',     $surface_2 ],
+		'--header-nav-active-border'     => [ 'bearlane_header_nav_active_border', 'transparent' ],
+		'--header-action-text'           => [ 'bearlane_header_action_text',          $primary ],
+		'--header-action-bg'             => [ 'bearlane_header_action_bg',            'transparent' ],
+		'--header-action-border'         => [ 'bearlane_header_action_border',        'transparent' ],
+		'--header-action-hover-text'     => [ 'bearlane_header_action_hover_text',    $secondary ],
+		'--header-action-hover-bg'       => [ 'bearlane_header_action_hover_bg',      $surface_2 ],
+		'--header-action-hover-border'   => [ 'bearlane_header_action_hover_border',  'transparent' ],
+		'--header-action-active-text'    => [ 'bearlane_header_action_active_text',   $secondary ],
+		'--header-action-active-bg'      => [ 'bearlane_header_action_active_bg',     $surface_2 ],
+		'--header-action-active-border'  => [ 'bearlane_header_action_active_border', 'transparent' ],
+		'--header-cta-text'              => [ 'bearlane_header_cta_text',          '#ffffff' ],
+		'--header-cta-bg'                => [ 'bearlane_header_cta_bg',            $secondary ],
+		'--header-cta-border'            => [ 'bearlane_header_cta_border',        $secondary ],
+		'--header-cta-hover-text'        => [ 'bearlane_header_cta_hover_text',    '#ffffff' ],
+		'--header-cta-hover-bg'          => [ 'bearlane_header_cta_hover_bg',      $sec_hover ],
+		'--header-cta-hover-border'      => [ 'bearlane_header_cta_hover_border',  $sec_hover ],
+		'--mobile-nav-text'              => [ 'bearlane_mobile_nav_text',          $primary ],
+		'--mobile-nav-bg'                => [ 'bearlane_mobile_nav_bg',            'transparent' ],
+		'--mobile-nav-border'            => [ 'bearlane_mobile_nav_border',        'transparent' ],
+		'--mobile-nav-hover-text'        => [ 'bearlane_mobile_nav_hover_text',    $secondary ],
+		'--mobile-nav-hover-bg'          => [ 'bearlane_mobile_nav_hover_bg',      $surface_2 ],
+		'--mobile-nav-hover-border'      => [ 'bearlane_mobile_nav_hover_border',  'transparent' ],
+		'--mobile-nav-active-text'       => [ 'bearlane_mobile_nav_active_text',   $secondary ],
+		'--mobile-nav-active-bg'         => [ 'bearlane_mobile_nav_active_bg',     $surface_2 ],
+		'--mobile-nav-active-border'     => [ 'bearlane_mobile_nav_active_border', 'transparent' ],
 	];
 
-	foreach ( $header_token_map as $css_prop => $mod_id ) {
+	foreach ( $header_tokens as $css_prop => [ $mod_id, $default ] ) {
 		$value = get_theme_mod( $mod_id, '' );
-		if ( $value ) {
-			$vars[ $css_prop ] = $value;
-		}
+		$vars[ $css_prop ] = $value ? $value : $default;
 	}
 
 	$props = '';
