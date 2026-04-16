@@ -127,23 +127,23 @@ if ( $announcement ) :
 		</div>
 	</div><!-- #site-search -->
 
-	<?php if ( class_exists( 'WooCommerce' ) ) : ?>
-	<!-- Mini Cart Drawer -->
-	<div id="mini-cart" class="mini-cart" role="dialog" aria-label="<?php esc_attr_e( 'Shopping cart', 'bearlane' ); ?>" aria-hidden="true">
-		<div class="mini-cart__header">
-			<h2 class="mini-cart__title"><?php esc_html_e( 'Your Cart', 'bearlane' ); ?></h2>
-			<button class="mini-cart__close js-cart-close" aria-label="<?php esc_attr_e( 'Close cart', 'bearlane' ); ?>">
-				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-			</button>
-		</div>
-		<div class="mini-cart__body">
-			<?php woocommerce_mini_cart(); ?>
-		</div>
-	</div>
-	<div class="mini-cart__overlay js-cart-close" aria-hidden="true"></div>
-	<?php endif; ?>
-
 </header><!-- #site-header -->
+
+<?php if ( class_exists( 'WooCommerce' ) ) : ?>
+<!-- Mini Cart Drawer (outside header to avoid backdrop-filter containing block) -->
+<div id="mini-cart" class="mini-cart" role="dialog" aria-label="<?php esc_attr_e( 'Shopping cart', 'bearlane' ); ?>" aria-hidden="true">
+	<div class="mini-cart__header">
+		<h2 class="mini-cart__title"><?php esc_html_e( 'Your Cart', 'bearlane' ); ?></h2>
+		<button class="mini-cart__close js-cart-close" aria-label="<?php esc_attr_e( 'Close cart', 'bearlane' ); ?>">
+			<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+		</button>
+	</div>
+	<div class="mini-cart__body">
+		<?php woocommerce_mini_cart(); ?>
+	</div>
+</div>
+<div class="mini-cart__overlay js-cart-close" aria-hidden="true"></div>
+<?php endif; ?>
 
 <!-- Quick View Modal -->
 <div id="quick-view-modal" class="modal" role="dialog" aria-modal="true" aria-label="<?php esc_attr_e( 'Product Quick View', 'bearlane' ); ?>" aria-hidden="true">
