@@ -48,10 +48,10 @@ function bearlane_theme_setup(): void {
 	// Selective refresh for Customizer widgets.
 	add_theme_support( 'customize-selective-refresh-widgets' );
 
-	// Custom logo.
+	// Custom logo (height matches --header-height for vertical centering).
 	add_theme_support( 'custom-logo', [
-		'height'      => 60,
-		'width'       => 200,
+		'height'      => 90,
+		'width'       => 300,
 		'flex-height' => true,
 		'flex-width'  => true,
 		'header-text' => [ 'site-title', 'site-description' ],

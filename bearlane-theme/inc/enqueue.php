@@ -79,7 +79,7 @@ function bearlane_enqueue_scripts(): void {
 	wp_localize_script( 'bearlane-main', 'bearLane', [
 		'ajaxUrl'   => admin_url( 'admin-ajax.php' ),
 		'nonce'     => wp_create_nonce( 'bearlane_nonce' ),
-		'currency'  => get_woocommerce_currency_symbol(),
+		'currency'  => class_exists( 'WooCommerce' ) ? get_woocommerce_currency_symbol() : '',
 		'cartUrl'   => class_exists( 'WooCommerce' ) ? wc_get_cart_url() : '',
 		'strings'   => [
 			'addToCart'     => __( 'Add to Cart', 'bearlane' ),

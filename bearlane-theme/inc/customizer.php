@@ -119,6 +119,178 @@ function bearlane_customizer_register( \WP_Customize_Manager $wp_customize ): vo
 	] );
 
 	// -----------------------------------------------------------------------
+	// Section — Header Navigation Styling
+	// -----------------------------------------------------------------------
+
+	$wp_customize->add_section( 'bearlane_header_nav_styles', [
+		'title'       => __( 'Header Navigation Colours', 'bearlane' ),
+		'description' => __( 'Control colours for the primary desktop navigation links in the header.', 'bearlane' ),
+		'panel'       => 'bearlane_panel',
+		'priority'    => 31,
+	] );
+
+	$header_nav_colors = [
+		'header_nav_text'          => [ __( 'Text Colour', 'bearlane' ),           '#1b2430' ],
+		'header_nav_bg'            => [ __( 'Background Colour', 'bearlane' ),     '' ],
+		'header_nav_border'        => [ __( 'Border Colour', 'bearlane' ),         '' ],
+		'header_nav_hover_text'    => [ __( 'Hover Text Colour', 'bearlane' ),     '#11b8c9' ],
+		'header_nav_hover_bg'      => [ __( 'Hover Background', 'bearlane' ),      '#e8eef1' ],
+		'header_nav_hover_border'  => [ __( 'Hover Border Colour', 'bearlane' ),   '' ],
+		'header_nav_active_text'   => [ __( 'Active/Current Text', 'bearlane' ),   '#11b8c9' ],
+		'header_nav_active_bg'     => [ __( 'Active/Current Background', 'bearlane' ), '#e8eef1' ],
+		'header_nav_active_border' => [ __( 'Active/Current Border', 'bearlane' ), '' ],
+	];
+
+	foreach ( $header_nav_colors as $id => [ $label, $default ] ) {
+		$wp_customize->add_setting( 'bearlane_' . $id, [
+			'default'           => $default,
+			'sanitize_callback' => 'bearlane_sanitize_color_or_empty',
+			'transport'         => 'postMessage',
+		] );
+		$wp_customize->add_control( new \WP_Customize_Color_Control( $wp_customize, 'bearlane_' . $id, [
+			'label'   => $label,
+			'section' => 'bearlane_header_nav_styles',
+		] ) );
+	}
+
+	// -----------------------------------------------------------------------
+	// Section — Header Action Icons Styling
+	// -----------------------------------------------------------------------
+
+	$wp_customize->add_section( 'bearlane_header_action_styles', [
+		'title'       => __( 'Header Action Icon Colours', 'bearlane' ),
+		'description' => __( 'Control colours for search, cart, account, and dark mode toggle buttons.', 'bearlane' ),
+		'panel'       => 'bearlane_panel',
+		'priority'    => 32,
+	] );
+
+	$header_action_colors = [
+		'header_action_text'          => [ __( 'Icon Colour', 'bearlane' ),             '#1b2430' ],
+		'header_action_bg'            => [ __( 'Background', 'bearlane' ),              '' ],
+		'header_action_border'        => [ __( 'Border Colour', 'bearlane' ),           '' ],
+		'header_action_hover_text'    => [ __( 'Hover Icon Colour', 'bearlane' ),       '#11b8c9' ],
+		'header_action_hover_bg'      => [ __( 'Hover Background', 'bearlane' ),        '#e8eef1' ],
+		'header_action_hover_border'  => [ __( 'Hover Border Colour', 'bearlane' ),     '' ],
+		'header_action_active_text'   => [ __( 'Active Icon Colour', 'bearlane' ),      '#11b8c9' ],
+		'header_action_active_bg'     => [ __( 'Active Background', 'bearlane' ),       '#e8eef1' ],
+		'header_action_active_border' => [ __( 'Active Border Colour', 'bearlane' ),    '' ],
+	];
+
+	foreach ( $header_action_colors as $id => [ $label, $default ] ) {
+		$wp_customize->add_setting( 'bearlane_' . $id, [
+			'default'           => $default,
+			'sanitize_callback' => 'bearlane_sanitize_color_or_empty',
+			'transport'         => 'postMessage',
+		] );
+		$wp_customize->add_control( new \WP_Customize_Color_Control( $wp_customize, 'bearlane_' . $id, [
+			'label'   => $label,
+			'section' => 'bearlane_header_action_styles',
+		] ) );
+	}
+
+	// -----------------------------------------------------------------------
+	// Section — Header CTA Button Styling
+	// -----------------------------------------------------------------------
+
+	$wp_customize->add_section( 'bearlane_header_cta_styles', [
+		'title'       => __( 'Header CTA Button Colours', 'bearlane' ),
+		'description' => __( 'Colours for any CTA / call-to-action buttons placed in the header menu.', 'bearlane' ),
+		'panel'       => 'bearlane_panel',
+		'priority'    => 33,
+	] );
+
+	$header_cta_colors = [
+		'header_cta_text'         => [ __( 'Text Colour', 'bearlane' ),         '#f2f4f5' ],
+		'header_cta_bg'           => [ __( 'Background', 'bearlane' ),          '#11b8c9' ],
+		'header_cta_border'       => [ __( 'Border Colour', 'bearlane' ),       '#11b8c9' ],
+		'header_cta_hover_text'   => [ __( 'Hover Text Colour', 'bearlane' ),   '#f2f4f5' ],
+		'header_cta_hover_bg'     => [ __( 'Hover Background', 'bearlane' ),    '#0898a6' ],
+		'header_cta_hover_border' => [ __( 'Hover Border Colour', 'bearlane' ), '#0898a6' ],
+	];
+
+	foreach ( $header_cta_colors as $id => [ $label, $default ] ) {
+		$wp_customize->add_setting( 'bearlane_' . $id, [
+			'default'           => $default,
+			'sanitize_callback' => 'bearlane_sanitize_color_or_empty',
+			'transport'         => 'postMessage',
+		] );
+		$wp_customize->add_control( new \WP_Customize_Color_Control( $wp_customize, 'bearlane_' . $id, [
+			'label'   => $label,
+			'section' => 'bearlane_header_cta_styles',
+		] ) );
+	}
+
+	// -----------------------------------------------------------------------
+	// Section — Mobile Navigation Styling
+	// -----------------------------------------------------------------------
+
+	$wp_customize->add_section( 'bearlane_mobile_nav_styles', [
+		'title'       => __( 'Mobile Navigation Colours', 'bearlane' ),
+		'description' => __( 'Control colours for the off-canvas mobile navigation menu.', 'bearlane' ),
+		'panel'       => 'bearlane_panel',
+		'priority'    => 34,
+	] );
+
+	$mobile_nav_colors = [
+		'mobile_nav_text'          => [ __( 'Text Colour', 'bearlane' ),            '#1b2430' ],
+		'mobile_nav_bg'            => [ __( 'Background', 'bearlane' ),             '' ],
+		'mobile_nav_border'        => [ __( 'Border Colour', 'bearlane' ),          '' ],
+		'mobile_nav_hover_text'    => [ __( 'Hover Text Colour', 'bearlane' ),      '#11b8c9' ],
+		'mobile_nav_hover_bg'      => [ __( 'Hover Background', 'bearlane' ),       '#e8eef1' ],
+		'mobile_nav_hover_border'  => [ __( 'Hover Border Colour', 'bearlane' ),    '' ],
+		'mobile_nav_active_text'   => [ __( 'Active/Current Text', 'bearlane' ),    '#11b8c9' ],
+		'mobile_nav_active_bg'     => [ __( 'Active/Current Background', 'bearlane' ), '#e8eef1' ],
+		'mobile_nav_active_border' => [ __( 'Active/Current Border', 'bearlane' ),  '' ],
+	];
+
+	foreach ( $mobile_nav_colors as $id => [ $label, $default ] ) {
+		$wp_customize->add_setting( 'bearlane_' . $id, [
+			'default'           => $default,
+			'sanitize_callback' => 'bearlane_sanitize_color_or_empty',
+			'transport'         => 'postMessage',
+		] );
+		$wp_customize->add_control( new \WP_Customize_Color_Control( $wp_customize, 'bearlane_' . $id, [
+			'label'   => $label,
+			'section' => 'bearlane_mobile_nav_styles',
+		] ) );
+	}
+
+	// -----------------------------------------------------------------------
+	// Section — WooCommerce Header Links
+	// -----------------------------------------------------------------------
+
+	$wp_customize->add_section( 'bearlane_woo_header_links', [
+		'title'       => __( 'Cart & Account Links', 'bearlane' ),
+		'description' => __( 'Fallback page assignments for the header cart and account icons. WooCommerce pages are used automatically when available.', 'bearlane' ),
+		'panel'       => 'bearlane_panel',
+		'priority'    => 35,
+	] );
+
+	$wp_customize->add_setting( 'bearlane_cart_fallback_page', [
+		'default'           => 0,
+		'sanitize_callback' => 'absint',
+		'transport'         => 'refresh',
+	] );
+	$wp_customize->add_control( 'bearlane_cart_fallback_page', [
+		'label'       => __( 'Cart Fallback Page', 'bearlane' ),
+		'description' => __( 'Used only when WooCommerce cart page is unavailable.', 'bearlane' ),
+		'section'     => 'bearlane_woo_header_links',
+		'type'        => 'dropdown-pages',
+	] );
+
+	$wp_customize->add_setting( 'bearlane_account_fallback_page', [
+		'default'           => 0,
+		'sanitize_callback' => 'absint',
+		'transport'         => 'refresh',
+	] );
+	$wp_customize->add_control( 'bearlane_account_fallback_page', [
+		'label'       => __( 'Account Fallback Page', 'bearlane' ),
+		'description' => __( 'Used only when WooCommerce My Account page is unavailable.', 'bearlane' ),
+		'section'     => 'bearlane_woo_header_links',
+		'type'        => 'dropdown-pages',
+	] );
+
+	// -----------------------------------------------------------------------
 	// Section — Homepage Hero (legacy)
 	// -----------------------------------------------------------------------
 	//
@@ -214,6 +386,20 @@ function bearlane_customizer_register( \WP_Customize_Manager $wp_customize ): vo
 add_action( 'customize_register', 'bearlane_customizer_register' );
 
 /**
+ * Sanitize a hex colour or allow empty string (transparent).
+ *
+ * @param string $value Input value.
+ * @return string Sanitized hex colour or empty string.
+ */
+function bearlane_sanitize_color_or_empty( string $value ): string {
+	if ( '' === $value ) {
+		return '';
+	}
+	$color = sanitize_hex_color( $value );
+	return $color ? $color : '';
+}
+
+/**
  * Output dynamic CSS custom properties driven by Customizer settings.
  * This runs on every page load; values are cached in a transient.
  */
@@ -232,19 +418,71 @@ add_action( 'wp_head', 'bearlane_customizer_css', 99 );
  */
 function bearlane_get_customizer_css(): string {
 	$vars = [
-		'--color-accent'     => get_theme_mod( 'bearlane_accent_color',   '#111827' ),
-		'--color-accent-hover' => get_theme_mod( 'bearlane_accent_hover', '#374151' ),
-		'--color-text'       => get_theme_mod( 'bearlane_text_primary',   '#111827' ),
-		'--color-text-muted' => get_theme_mod( 'bearlane_text_secondary', '#6b7280' ),
-		'--color-bg'         => get_theme_mod( 'bearlane_bg_color',       '#fafafa' ),
-		'--color-surface'    => get_theme_mod( 'bearlane_surface_color',  '#ffffff' ),
-		'--color-border'     => get_theme_mod( 'bearlane_border_color',   '#e5e7eb' ),
-		'--font-size-base'   => get_theme_mod( 'bearlane_font_size_base', '16' ) . 'px',
+		'--color-accent'       => get_theme_mod( 'bearlane_accent_color',   '#111827' ),
+		'--color-accent-hover' => get_theme_mod( 'bearlane_accent_hover',   '#374151' ),
+		'--color-text'         => get_theme_mod( 'bearlane_text_primary',   '#111827' ),
+		'--color-text-muted'   => get_theme_mod( 'bearlane_text_secondary', '#6b7280' ),
+		'--color-bg'           => get_theme_mod( 'bearlane_bg_color',       '#fafafa' ),
+		'--color-surface'      => get_theme_mod( 'bearlane_surface_color',  '#ffffff' ),
+		'--color-border'       => get_theme_mod( 'bearlane_border_color',   '#e5e7eb' ),
+		'--font-size-base'     => get_theme_mod( 'bearlane_font_size_base', '16' ) . 'px',
 	];
+
+	// Header navigation tokens.
+	$header_token_map = [
+		// Primary desktop nav.
+		'--header-nav-text'              => 'bearlane_header_nav_text',
+		'--header-nav-bg'                => 'bearlane_header_nav_bg',
+		'--header-nav-border'            => 'bearlane_header_nav_border',
+		'--header-nav-hover-text'        => 'bearlane_header_nav_hover_text',
+		'--header-nav-hover-bg'          => 'bearlane_header_nav_hover_bg',
+		'--header-nav-hover-border'      => 'bearlane_header_nav_hover_border',
+		'--header-nav-active-text'       => 'bearlane_header_nav_active_text',
+		'--header-nav-active-bg'         => 'bearlane_header_nav_active_bg',
+		'--header-nav-active-border'     => 'bearlane_header_nav_active_border',
+		// Header action icons.
+		'--header-action-text'           => 'bearlane_header_action_text',
+		'--header-action-bg'             => 'bearlane_header_action_bg',
+		'--header-action-border'         => 'bearlane_header_action_border',
+		'--header-action-hover-text'     => 'bearlane_header_action_hover_text',
+		'--header-action-hover-bg'       => 'bearlane_header_action_hover_bg',
+		'--header-action-hover-border'   => 'bearlane_header_action_hover_border',
+		'--header-action-active-text'    => 'bearlane_header_action_active_text',
+		'--header-action-active-bg'      => 'bearlane_header_action_active_bg',
+		'--header-action-active-border'  => 'bearlane_header_action_active_border',
+		// CTA buttons.
+		'--header-cta-text'              => 'bearlane_header_cta_text',
+		'--header-cta-bg'                => 'bearlane_header_cta_bg',
+		'--header-cta-border'            => 'bearlane_header_cta_border',
+		'--header-cta-hover-text'        => 'bearlane_header_cta_hover_text',
+		'--header-cta-hover-bg'          => 'bearlane_header_cta_hover_bg',
+		'--header-cta-hover-border'      => 'bearlane_header_cta_hover_border',
+		// Mobile nav.
+		'--mobile-nav-text'              => 'bearlane_mobile_nav_text',
+		'--mobile-nav-bg'                => 'bearlane_mobile_nav_bg',
+		'--mobile-nav-border'            => 'bearlane_mobile_nav_border',
+		'--mobile-nav-hover-text'        => 'bearlane_mobile_nav_hover_text',
+		'--mobile-nav-hover-bg'          => 'bearlane_mobile_nav_hover_bg',
+		'--mobile-nav-hover-border'      => 'bearlane_mobile_nav_hover_border',
+		'--mobile-nav-active-text'       => 'bearlane_mobile_nav_active_text',
+		'--mobile-nav-active-bg'         => 'bearlane_mobile_nav_active_bg',
+		'--mobile-nav-active-border'     => 'bearlane_mobile_nav_active_border',
+	];
+
+	foreach ( $header_token_map as $css_prop => $mod_id ) {
+		$value = get_theme_mod( $mod_id, '' );
+		if ( $value ) {
+			$vars[ $css_prop ] = $value;
+		}
+	}
 
 	$props = '';
 	foreach ( $vars as $prop => $value ) {
-		$props .= sanitize_text_field( $prop ) . ':' . sanitize_text_field( $value ) . ';';
+		$safe_prop  = sanitize_text_field( $prop );
+		$safe_value = sanitize_text_field( $value );
+		if ( '' !== $safe_value ) {
+			$props .= $safe_prop . ':' . $safe_value . ';';
+		}
 	}
 
 	return ':root{' . $props . '}';
