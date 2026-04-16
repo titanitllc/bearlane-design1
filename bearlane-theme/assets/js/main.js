@@ -194,7 +194,12 @@
 	}
 
 	if ( cartToggle ) {
-		cartToggle.addEventListener( 'click', function () {
+		cartToggle.addEventListener( 'click', function ( e ) {
+			// Prevent navigation on left-click so the mini-cart drawer opens.
+			// Middle-click / Ctrl+click still follow the href to the cart page.
+			if ( ! e.ctrlKey && ! e.metaKey && e.button !== 1 ) {
+				e.preventDefault();
+			}
 			state.cartOpen ? closeCart() : openCart();
 		} );
 	}

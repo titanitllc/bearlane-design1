@@ -72,22 +72,64 @@ if ( $announcement ) :
 			</button>
 			<?php endif; ?>
 
-			<?php if ( class_exists( 'WooCommerce' ) ) : ?>
+			<?php
+			// --- Account Icon ---
+			$bearlane_account_url = '';
+			if ( class_exists( 'WooCommerce' ) ) {
+				$bearlane_account_page_id = wc_get_page_id( 'myaccount' );
+				if ( $bearlane_account_page_id > 0 ) {
+					$bearlane_account_url = get_permalink( $bearlane_account_page_id );
+				}
+			}
+			if ( ! $bearlane_account_url ) {
+				$bearlane_account_fallback = (int) get_theme_mod( 'bearlane_account_fallback_page', 0 );
+				if ( $bearlane_account_fallback > 0 ) {
+					$bearlane_account_url = get_permalink( $bearlane_account_fallback );
+				}
+			}
+			if ( $bearlane_account_url ) : ?>
 			<!-- Account -->
-			<a href="<?php echo esc_url( wc_get_account_endpoint_url( 'dashboard' ) ); ?>"
+			<a href="<?php echo esc_url( $bearlane_account_url ); ?>"
 				class="header-action header-action--account"
 				aria-label="<?php esc_attr_e( 'My account', 'bearlane' ); ?>">
 				<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
 			</a>
+			<?php endif; ?>
 
-			<!-- Mini cart -->
-			<button class="header-action header-action--cart js-cart-toggle"
+			<?php
+			// --- Cart Icon ---
+			$bearlane_cart_url = '';
+			if ( class_exists( 'WooCommerce' ) ) {
+				$bearlane_cart_page_id = wc_get_page_id( 'cart' );
+				if ( $bearlane_cart_page_id > 0 ) {
+					$bearlane_cart_url = get_permalink( $bearlane_cart_page_id );
+				}
+			}
+			if ( ! $bearlane_cart_url ) {
+				$bearlane_cart_fallback = (int) get_theme_mod( 'bearlane_cart_fallback_page', 0 );
+				if ( $bearlane_cart_fallback > 0 ) {
+					$bearlane_cart_url = get_permalink( $bearlane_cart_fallback );
+				}
+			}
+			?>
+			<?php if ( class_exists( 'WooCommerce' ) ) : ?>
+			<!-- Mini cart toggle (opens drawer, links to cart page on middle-click) -->
+			<a href="<?php echo esc_url( $bearlane_cart_url ? $bearlane_cart_url : '#mini-cart' ); ?>"
+				class="header-action header-action--cart js-cart-toggle"
 				aria-label="<?php esc_attr_e( 'Shopping cart', 'bearlane' ); ?>"
 				aria-expanded="false"
-				aria-controls="mini-cart">
+				aria-controls="mini-cart"
+				role="button">
 				<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-				<span class="cart-count"><?php echo class_exists( 'WooCommerce' ) ? WC()->cart->get_cart_contents_count() : 0; ?></span>
-			</button>
+				<span class="cart-count"><?php echo WC()->cart->get_cart_contents_count(); ?></span>
+			</a>
+			<?php elseif ( $bearlane_cart_url ) : ?>
+			<!-- Cart link (WooCommerce inactive, fallback page set) -->
+			<a href="<?php echo esc_url( $bearlane_cart_url ); ?>"
+				class="header-action header-action--cart"
+				aria-label="<?php esc_attr_e( 'Shopping cart', 'bearlane' ); ?>">
+				<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+			</a>
 			<?php endif; ?>
 
 			<!-- Mobile menu toggle -->
