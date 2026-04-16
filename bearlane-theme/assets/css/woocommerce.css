@@ -36,7 +36,8 @@
 .woocommerce a.button,
 .woocommerce button.button,
 .woocommerce input.button,
-.woocommerce #respond input#submit {
+.woocommerce #respond input#submit,
+.mini-cart a.button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -49,14 +50,15 @@
   background-color: var(--color-accent);
   color: var(--color-bg) !important;
   cursor: pointer;
-  text-decoration: none;
+  text-decoration: none !important;
   transition: background-color var(--transition-fast), color var(--transition-fast);
   line-height: 1.4;
 }
 .woocommerce a.button:hover,
 .woocommerce button.button:hover,
 .woocommerce input.button:hover,
-.woocommerce #respond input#submit:hover {
+.woocommerce #respond input#submit:hover,
+.mini-cart a.button:hover {
   background-color: var(--color-accent-hover);
   color: var(--color-bg) !important;
 }
@@ -447,7 +449,7 @@ table.shop_table img { width: 64px; height: 64px; object-fit: cover; border-radi
   display: flex;
   justify-content: space-between;
 }
-.woocommerce-mini-cart__buttons {
+p.woocommerce-mini-cart__buttons.buttons {
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
@@ -455,21 +457,21 @@ table.shop_table img { width: 64px; height: 64px; object-fit: cover; border-radi
   padding-top: var(--space-4);
   border-top: 1px solid var(--color-border);
 }
-.woocommerce-mini-cart__buttons a {
-  display: inline-flex;
+p.woocommerce-mini-cart__buttons a.button {
+  display: inline-flex !important;
   align-items: center;
   justify-content: center;
   width: 100%;
-  padding: var(--space-3) var(--space-6);
+  padding: var(--space-3) var(--space-6) !important;
   font-family: var(--font-sans);
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-sm) !important;
   font-weight: var(--font-weight-semibold);
   line-height: 1.4;
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-full) !important;
   border: 1.5px solid transparent;
   cursor: pointer;
   text-align: center;
-  text-decoration: none;
+  text-decoration: none !important;
   white-space: nowrap;
   user-select: none;
   transition: background-color var(--transition-fast),
@@ -478,30 +480,30 @@ table.shop_table img { width: 64px; height: 64px; object-fit: cover; border-radi
               box-shadow var(--transition-fast),
               transform var(--transition-fast);
 }
-.woocommerce-mini-cart__buttons a:active { transform: translateY(1px); }
-.woocommerce-mini-cart__buttons a:focus-visible {
+p.woocommerce-mini-cart__buttons a.button:active { transform: translateY(1px); }
+p.woocommerce-mini-cart__buttons a.button:focus-visible {
   outline: 2px solid var(--color-border-focus);
   outline-offset: 2px;
 }
-.woocommerce-mini-cart__buttons a.checkout {
-  background-color: var(--color-accent);
-  color: #fff;
-  border-color: var(--color-accent);
+p.woocommerce-mini-cart__buttons a.button.checkout {
+  background-color: var(--color-accent) !important;
+  color: #fff !important;
+  border-color: var(--color-accent) !important;
   letter-spacing: 0.01em;
 }
-.woocommerce-mini-cart__buttons a.checkout:hover {
-  background-color: var(--color-accent-hover);
-  border-color: var(--color-accent-hover);
-  color: #fff;
+p.woocommerce-mini-cart__buttons a.button.checkout:hover {
+  background-color: var(--color-accent-hover) !important;
+  border-color: var(--color-accent-hover) !important;
+  color: #fff !important;
 }
-.woocommerce-mini-cart__buttons a:not(.checkout) {
-  background-color: transparent;
-  color: var(--color-accent);
-  border-color: var(--color-accent);
+p.woocommerce-mini-cart__buttons a.button:not(.checkout) {
+  background-color: transparent !important;
+  color: var(--color-accent) !important;
+  border-color: var(--color-accent) !important;
 }
-.woocommerce-mini-cart__buttons a:not(.checkout):hover {
-  background-color: var(--color-accent);
-  color: #fff;
+p.woocommerce-mini-cart__buttons a.button:not(.checkout):hover {
+  background-color: var(--color-accent) !important;
+  color: #fff !important;
 }
 
 /* ============================================================
