@@ -62,9 +62,11 @@ add_action( 'after_setup_theme', 'bearlane_editor_styles' );
  */
 function bearlane_block_editor_settings( array $settings ): array {
 	$settings['__experimentalFeatures']['color']['palette']['theme'] = [
-		[ 'slug' => 'accent',  'color' => get_theme_mod( 'bearlane_accent_color', '#111827' ), 'name' => __( 'Accent', 'bearlane' ) ],
-		[ 'slug' => 'text',    'color' => get_theme_mod( 'bearlane_text_primary', '#111827' ), 'name' => __( 'Text', 'bearlane' ) ],
-		[ 'slug' => 'surface', 'color' => get_theme_mod( 'bearlane_surface_color', '#ffffff' ), 'name' => __( 'Surface', 'bearlane' ) ],
+		[ 'slug' => 'primary',   'color' => get_theme_mod( 'bearlane_primary_color',   '#1B2D42' ), 'name' => __( 'Primary (Navy)', 'bearlane' ) ],
+		[ 'slug' => 'secondary', 'color' => get_theme_mod( 'bearlane_secondary_color', '#3D8B37' ), 'name' => __( 'Secondary (Green)', 'bearlane' ) ],
+		[ 'slug' => 'accent',    'color' => get_theme_mod( 'bearlane_secondary_color', '#3D8B37' ), 'name' => __( 'Accent', 'bearlane' ) ],
+		[ 'slug' => 'text',      'color' => get_theme_mod( 'bearlane_text_primary',    '#1B2D42' ), 'name' => __( 'Text', 'bearlane' ) ],
+		[ 'slug' => 'surface',   'color' => get_theme_mod( 'bearlane_surface_color',   '#ffffff' ), 'name' => __( 'Surface', 'bearlane' ) ],
 	];
 	return $settings;
 }

@@ -31,23 +31,28 @@ function bearlane_customizer_register( \WP_Customize_Manager $wp_customize ): vo
 	] );
 
 	// -----------------------------------------------------------------------
-	// Section — Colours
+	// Section — Theme Colours (central brand palette)
 	// -----------------------------------------------------------------------
 
 	$wp_customize->add_section( 'bearlane_colors', [
-		'title'    => __( 'Colours', 'bearlane' ),
-		'panel'    => 'bearlane_panel',
-		'priority' => 10,
+		'title'       => __( 'Theme Colours', 'bearlane' ),
+		'description' => __( 'Central brand colours used across the entire site. Changing these will update buttons, links, headings, and all component defaults.', 'bearlane' ),
+		'panel'       => 'bearlane_panel',
+		'priority'    => 10,
 	] );
 
 	$color_settings = [
-		'accent_color'    => [ __( 'Accent Colour', 'bearlane' ),    '#111827' ],
-		'accent_hover'    => [ __( 'Accent Hover', 'bearlane' ),     '#374151' ],
-		'text_primary'    => [ __( 'Primary Text', 'bearlane' ),     '#111827' ],
-		'text_secondary'  => [ __( 'Secondary Text', 'bearlane' ),   '#6b7280' ],
-		'bg_color'        => [ __( 'Background Colour', 'bearlane' ), '#fafafa' ],
-		'surface_color'   => [ __( 'Surface Colour', 'bearlane' ),   '#ffffff' ],
-		'border_color'    => [ __( 'Border Colour', 'bearlane' ),    '#e5e7eb' ],
+		'primary_color'     => [ __( 'Primary Colour (Navy)', 'bearlane' ),      '#1B2D42' ],
+		'primary_hover'     => [ __( 'Primary Hover', 'bearlane' ),              '#263D56' ],
+		'secondary_color'   => [ __( 'Secondary Colour (Green)', 'bearlane' ),   '#3D8B37' ],
+		'secondary_hover'   => [ __( 'Secondary Hover', 'bearlane' ),            '#2D6B29' ],
+		'heading_color'     => [ __( 'Heading Colour', 'bearlane' ),             '#1B2D42' ],
+		'text_primary'      => [ __( 'Primary Text', 'bearlane' ),               '#1B2D42' ],
+		'text_secondary'    => [ __( 'Secondary Text', 'bearlane' ),             '#5e6a75' ],
+		'bg_color'          => [ __( 'Background Colour', 'bearlane' ),          '#F2F4F5' ],
+		'surface_color'     => [ __( 'Surface Colour', 'bearlane' ),             '#ffffff' ],
+		'surface_2_color'   => [ __( 'Surface 2 Colour', 'bearlane' ),           '#E8EEF1' ],
+		'border_color'      => [ __( 'Border Colour', 'bearlane' ),              '#d5dde2' ],
 	];
 
 	foreach ( $color_settings as $id => [ $label, $default ] ) {
@@ -130,14 +135,14 @@ function bearlane_customizer_register( \WP_Customize_Manager $wp_customize ): vo
 	] );
 
 	$header_nav_colors = [
-		'header_nav_text'          => [ __( 'Text Colour', 'bearlane' ),           '#1b2430' ],
+		'header_nav_text'          => [ __( 'Text Colour', 'bearlane' ),           '#1B2D42' ],
 		'header_nav_bg'            => [ __( 'Background Colour', 'bearlane' ),     '' ],
 		'header_nav_border'        => [ __( 'Border Colour', 'bearlane' ),         '' ],
-		'header_nav_hover_text'    => [ __( 'Hover Text Colour', 'bearlane' ),     '#11b8c9' ],
-		'header_nav_hover_bg'      => [ __( 'Hover Background', 'bearlane' ),      '#e8eef1' ],
+		'header_nav_hover_text'    => [ __( 'Hover Text Colour', 'bearlane' ),     '#3D8B37' ],
+		'header_nav_hover_bg'      => [ __( 'Hover Background', 'bearlane' ),      '#E8EEF1' ],
 		'header_nav_hover_border'  => [ __( 'Hover Border Colour', 'bearlane' ),   '' ],
-		'header_nav_active_text'   => [ __( 'Active/Current Text', 'bearlane' ),   '#11b8c9' ],
-		'header_nav_active_bg'     => [ __( 'Active/Current Background', 'bearlane' ), '#e8eef1' ],
+		'header_nav_active_text'   => [ __( 'Active/Current Text', 'bearlane' ),   '#3D8B37' ],
+		'header_nav_active_bg'     => [ __( 'Active/Current Background', 'bearlane' ), '#E8EEF1' ],
 		'header_nav_active_border' => [ __( 'Active/Current Border', 'bearlane' ), '' ],
 	];
 
@@ -165,14 +170,14 @@ function bearlane_customizer_register( \WP_Customize_Manager $wp_customize ): vo
 	] );
 
 	$header_action_colors = [
-		'header_action_text'          => [ __( 'Icon Colour', 'bearlane' ),             '#1b2430' ],
+		'header_action_text'          => [ __( 'Icon Colour', 'bearlane' ),             '#1B2D42' ],
 		'header_action_bg'            => [ __( 'Background', 'bearlane' ),              '' ],
 		'header_action_border'        => [ __( 'Border Colour', 'bearlane' ),           '' ],
-		'header_action_hover_text'    => [ __( 'Hover Icon Colour', 'bearlane' ),       '#11b8c9' ],
-		'header_action_hover_bg'      => [ __( 'Hover Background', 'bearlane' ),        '#e8eef1' ],
+		'header_action_hover_text'    => [ __( 'Hover Icon Colour', 'bearlane' ),       '#3D8B37' ],
+		'header_action_hover_bg'      => [ __( 'Hover Background', 'bearlane' ),        '#E8EEF1' ],
 		'header_action_hover_border'  => [ __( 'Hover Border Colour', 'bearlane' ),     '' ],
-		'header_action_active_text'   => [ __( 'Active Icon Colour', 'bearlane' ),      '#11b8c9' ],
-		'header_action_active_bg'     => [ __( 'Active Background', 'bearlane' ),       '#e8eef1' ],
+		'header_action_active_text'   => [ __( 'Active Icon Colour', 'bearlane' ),      '#3D8B37' ],
+		'header_action_active_bg'     => [ __( 'Active Background', 'bearlane' ),       '#E8EEF1' ],
 		'header_action_active_border' => [ __( 'Active Border Colour', 'bearlane' ),    '' ],
 	];
 
@@ -200,12 +205,12 @@ function bearlane_customizer_register( \WP_Customize_Manager $wp_customize ): vo
 	] );
 
 	$header_cta_colors = [
-		'header_cta_text'         => [ __( 'Text Colour', 'bearlane' ),         '#f2f4f5' ],
-		'header_cta_bg'           => [ __( 'Background', 'bearlane' ),          '#11b8c9' ],
-		'header_cta_border'       => [ __( 'Border Colour', 'bearlane' ),       '#11b8c9' ],
-		'header_cta_hover_text'   => [ __( 'Hover Text Colour', 'bearlane' ),   '#f2f4f5' ],
-		'header_cta_hover_bg'     => [ __( 'Hover Background', 'bearlane' ),    '#0898a6' ],
-		'header_cta_hover_border' => [ __( 'Hover Border Colour', 'bearlane' ), '#0898a6' ],
+		'header_cta_text'         => [ __( 'Text Colour', 'bearlane' ),         '#ffffff' ],
+		'header_cta_bg'           => [ __( 'Background', 'bearlane' ),          '#3D8B37' ],
+		'header_cta_border'       => [ __( 'Border Colour', 'bearlane' ),       '#3D8B37' ],
+		'header_cta_hover_text'   => [ __( 'Hover Text Colour', 'bearlane' ),   '#ffffff' ],
+		'header_cta_hover_bg'     => [ __( 'Hover Background', 'bearlane' ),    '#2D6B29' ],
+		'header_cta_hover_border' => [ __( 'Hover Border Colour', 'bearlane' ), '#2D6B29' ],
 	];
 
 	foreach ( $header_cta_colors as $id => [ $label, $default ] ) {
@@ -232,14 +237,14 @@ function bearlane_customizer_register( \WP_Customize_Manager $wp_customize ): vo
 	] );
 
 	$mobile_nav_colors = [
-		'mobile_nav_text'          => [ __( 'Text Colour', 'bearlane' ),            '#1b2430' ],
+		'mobile_nav_text'          => [ __( 'Text Colour', 'bearlane' ),            '#1B2D42' ],
 		'mobile_nav_bg'            => [ __( 'Background', 'bearlane' ),             '' ],
 		'mobile_nav_border'        => [ __( 'Border Colour', 'bearlane' ),          '' ],
-		'mobile_nav_hover_text'    => [ __( 'Hover Text Colour', 'bearlane' ),      '#11b8c9' ],
-		'mobile_nav_hover_bg'      => [ __( 'Hover Background', 'bearlane' ),       '#e8eef1' ],
+		'mobile_nav_hover_text'    => [ __( 'Hover Text Colour', 'bearlane' ),      '#3D8B37' ],
+		'mobile_nav_hover_bg'      => [ __( 'Hover Background', 'bearlane' ),       '#E8EEF1' ],
 		'mobile_nav_hover_border'  => [ __( 'Hover Border Colour', 'bearlane' ),    '' ],
-		'mobile_nav_active_text'   => [ __( 'Active/Current Text', 'bearlane' ),    '#11b8c9' ],
-		'mobile_nav_active_bg'     => [ __( 'Active/Current Background', 'bearlane' ), '#e8eef1' ],
+		'mobile_nav_active_text'   => [ __( 'Active/Current Text', 'bearlane' ),    '#3D8B37' ],
+		'mobile_nav_active_bg'     => [ __( 'Active/Current Background', 'bearlane' ), '#E8EEF1' ],
 		'mobile_nav_active_border' => [ __( 'Active/Current Border', 'bearlane' ),  '' ],
 	];
 
@@ -417,15 +422,24 @@ add_action( 'wp_head', 'bearlane_customizer_css', 99 );
  * @return string
  */
 function bearlane_get_customizer_css(): string {
+	$primary   = get_theme_mod( 'bearlane_primary_color',   '#1B2D42' );
+	$secondary = get_theme_mod( 'bearlane_secondary_color', '#3D8B37' );
+
 	$vars = [
-		'--color-accent'       => get_theme_mod( 'bearlane_accent_color',   '#111827' ),
-		'--color-accent-hover' => get_theme_mod( 'bearlane_accent_hover',   '#374151' ),
-		'--color-text'         => get_theme_mod( 'bearlane_text_primary',   '#111827' ),
-		'--color-text-muted'   => get_theme_mod( 'bearlane_text_secondary', '#6b7280' ),
-		'--color-bg'           => get_theme_mod( 'bearlane_bg_color',       '#fafafa' ),
-		'--color-surface'      => get_theme_mod( 'bearlane_surface_color',  '#ffffff' ),
-		'--color-border'       => get_theme_mod( 'bearlane_border_color',   '#e5e7eb' ),
-		'--font-size-base'     => get_theme_mod( 'bearlane_font_size_base', '16' ) . 'px',
+		'--color-primary'       => $primary,
+		'--color-primary-hover' => get_theme_mod( 'bearlane_primary_hover',   '#263D56' ),
+		'--color-secondary'     => $secondary,
+		'--color-secondary-hover' => get_theme_mod( 'bearlane_secondary_hover', '#2D6B29' ),
+		'--color-accent'        => $secondary,
+		'--color-accent-hover'  => get_theme_mod( 'bearlane_secondary_hover', '#2D6B29' ),
+		'--color-heading'       => get_theme_mod( 'bearlane_heading_color',   '#1B2D42' ),
+		'--color-text'          => get_theme_mod( 'bearlane_text_primary',    '#1B2D42' ),
+		'--color-text-muted'    => get_theme_mod( 'bearlane_text_secondary',  '#5e6a75' ),
+		'--color-bg'            => get_theme_mod( 'bearlane_bg_color',        '#F2F4F5' ),
+		'--color-surface'       => get_theme_mod( 'bearlane_surface_color',   '#ffffff' ),
+		'--color-surface-2'     => get_theme_mod( 'bearlane_surface_2_color', '#E8EEF1' ),
+		'--color-border'        => get_theme_mod( 'bearlane_border_color',    '#d5dde2' ),
+		'--font-size-base'      => get_theme_mod( 'bearlane_font_size_base',  '16' ) . 'px',
 	];
 
 	// Header navigation tokens.

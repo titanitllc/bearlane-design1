@@ -4,10 +4,12 @@
  */
 
 :root {
-  --color-accent:  #111827;
-  --color-text:    #111827;
-  --color-bg:      #fafafa;
-  --color-border:  #e5e7eb;
+  --color-primary:  #1B2D42;
+  --color-secondary: #3D8B37;
+  --color-accent:  #3D8B37;
+  --color-text:    #1B2D42;
+  --color-bg:      #F2F4F5;
+  --color-border:  #d5dde2;
   --font-sans:     'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
 }
 
