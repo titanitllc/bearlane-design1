@@ -17,6 +17,67 @@ if ( ! class_exists( 'WooCommerce' ) ) {
 }
 
 // ---------------------------------------------------------------------------
+// Auto-create WooCommerce pages on theme activation
+// ---------------------------------------------------------------------------
+
+add_action( 'after_switch_theme', 'bearlane_setup_wc_pages' );
+
+/**
+ * Create Cart, Checkout, and My Account pages if they don't already exist
+ * and assign them in WooCommerce settings with the matching page templates.
+ */
+function bearlane_setup_wc_pages(): void {
+	if ( ! class_exists( 'WooCommerce' ) ) {
+		return;
+	}
+
+	$pages = [
+		'cart'      => [
+			'title'    => __( 'Cart', 'bearlane' ),
+			'content'  => '<!-- wp:woocommerce/cart --><!-- /wp:woocommerce/cart -->',
+			'template' => 'template-wc-cart.php',
+			'option'   => 'woocommerce_cart_page_id',
+		],
+		'checkout'  => [
+			'title'    => __( 'Checkout', 'bearlane' ),
+			'content'  => '<!-- wp:woocommerce/checkout --><!-- /wp:woocommerce/checkout -->',
+			'template' => 'template-wc-checkout.php',
+			'option'   => 'woocommerce_checkout_page_id',
+		],
+		'myaccount' => [
+			'title'    => __( 'My Account', 'bearlane' ),
+			'content'  => '[woocommerce_my_account]',
+			'template' => 'template-wc-account.php',
+			'option'   => 'woocommerce_myaccount_page_id',
+		],
+	];
+
+	foreach ( $pages as $slug => $page_data ) {
+		$page_id = wc_get_page_id( $slug );
+
+		if ( $page_id > 0 && 'publish' === get_post_status( $page_id ) ) {
+			update_post_meta( $page_id, '_wp_page_template', $page_data['template'] );
+			continue;
+		}
+
+		$new_page_id = wp_insert_post( [
+			'post_title'   => $page_data['title'],
+			'post_name'    => sanitize_title( $page_data['title'] ),
+			'post_content' => $page_data['content'],
+			'post_status'  => 'publish',
+			'post_type'    => 'page',
+			'meta_input'   => [
+				'_wp_page_template' => $page_data['template'],
+			],
+		] );
+
+		if ( $new_page_id && ! is_wp_error( $new_page_id ) ) {
+			update_option( $page_data['option'], $new_page_id );
+		}
+	}
+}
+
+// ---------------------------------------------------------------------------
 // Layout / Wrappers
 // ---------------------------------------------------------------------------
 

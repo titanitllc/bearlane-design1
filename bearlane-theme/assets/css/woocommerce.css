@@ -812,3 +812,44 @@ table.shop_table img { width: 64px; height: 64px; object-fit: cover; border-radi
 @media (max-width: 480px) {
   .thread-swatch { width: 28px; height: 28px; }
 }
+
+/* ============================================================
+   WooCommerce Page Templates (Cart, Checkout, My Account)
+   ============================================================ */
+
+.woo-page {
+  padding-block: var(--space-8) var(--space-20);
+}
+.woo-page__header {
+  margin-bottom: var(--space-8);
+}
+.woo-page__title {
+  font-size: clamp(var(--font-size-2xl), 3vw, var(--font-size-4xl));
+  font-weight: var(--font-weight-bold);
+  line-height: 1.15;
+  margin-top: var(--space-4);
+}
+.woo-page__header .breadcrumb {
+  margin-bottom: 0;
+}
+
+/* Account page — login form layout */
+.woo-page--account .woocommerce-form-login,
+.woo-page--account .woocommerce-form-register {
+  max-width: 480px;
+  background-color: var(--color-surface-2);
+  padding: var(--space-8);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border);
+}
+.woo-page--account .u-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-8);
+}
+
+@media (max-width: 768px) {
+  .woo-page--account .u-columns {
+    grid-template-columns: 1fr;
+  }
+}
