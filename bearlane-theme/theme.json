@@ -4,12 +4,14 @@
   "settings": {
     "color": {
       "palette": [
-        { "slug": "accent",     "color": "#11b8c9", "name": "Accent"     },
-        { "slug": "text",       "color": "#1b2430", "name": "Text"       },
+        { "slug": "primary",    "color": "#1B2D42", "name": "Primary (Navy)"    },
+        { "slug": "secondary",  "color": "#3D8B37", "name": "Secondary (Green)" },
+        { "slug": "accent",     "color": "#3D8B37", "name": "Accent"     },
+        { "slug": "text",       "color": "#1B2D42", "name": "Text"       },
         { "slug": "muted",      "color": "#5e6a75", "name": "Muted"      },
-        { "slug": "bg",         "color": "#f2f4f5", "name": "Background" },
+        { "slug": "bg",         "color": "#F2F4F5", "name": "Background" },
         { "slug": "surface",    "color": "#ffffff", "name": "Surface"    },
-        { "slug": "surface-2",  "color": "#e8eef1", "name": "Surface 2"  },
+        { "slug": "surface-2",  "color": "#E8EEF1", "name": "Surface 2"  },
         { "slug": "border",     "color": "#d5dde2", "name": "Border"     },
         { "slug": "error",      "color": "#dc2626", "name": "Error"      },
         { "slug": "success",    "color": "#16a34a", "name": "Success"    }
@@ -76,8 +78,8 @@
   },
   "styles": {
     "color": {
-      "background": "#f2f4f5",
-      "text":       "#1b2430"
+      "background": "#F2F4F5",
+      "text":       "#1B2D42"
     },
     "typography": {
       "fontFamily": "var(--wp--preset--font-family--open-sans, 'Open Sans', sans-serif)",
@@ -86,8 +88,8 @@
     },
     "elements": {
       "link": {
-        "color": { "text": "#111827" },
-        ":hover": { "color": { "text": "#0898a6" } }
+        "color": { "text": "#1B2D42" },
+        ":hover": { "color": { "text": "#3D8B37" } }
       },
       "h1": { "typography": { "fontFamily": "var(--wp--preset--font-family--montserrat, 'Montserrat', sans-serif)", "fontWeight": "700", "lineHeight": "1.1", "letterSpacing": "-0.03em" } },
       "h2": { "typography": { "fontFamily": "var(--wp--preset--font-family--montserrat, 'Montserrat', sans-serif)", "fontWeight": "600", "lineHeight": "1.15", "letterSpacing": "-0.02em" } },
@@ -96,7 +98,7 @@
     "blocks": {
       "core/separator": {
         "color": { "text": "#d5dde2" },
-        "border": { "color": "#d5dde2", "width": "1px" }
+        "border": { "color": "#d5dde2", "width": "1px"  }
       }
     }
   }

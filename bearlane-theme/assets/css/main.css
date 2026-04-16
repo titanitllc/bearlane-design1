@@ -45,17 +45,23 @@
    ============================================================ */
 
 :root {
-  /* Colours */
-  --color-bg:            #f2f4f5;
+  /* Brand Colours (from logo: navy + green + white) */
+  --color-primary:       #1B2D42;
+  --color-primary-hover: #263D56;
+  --color-secondary:     #3D8B37;
+  --color-secondary-hover: #2D6B29;
+
+  /* Semantic Colours */
+  --color-bg:            #F2F4F5;
   --color-surface:       #ffffff;
-  --color-surface-2:     #e8eef1;
-  --color-accent:        #11b8c9;
-  --color-accent-hover:  #0898a6;
-  --color-text:          #1b2430;
+  --color-surface-2:     #E8EEF1;
+  --color-accent:        var(--color-secondary);
+  --color-accent-hover:  var(--color-secondary-hover);
+  --color-text:          #1B2D42;
   --color-text-muted:    #5e6a75;
   --color-border:        #d5dde2;
-  --color-border-focus:  #0898a6;
-  --color-heading:       #101827;
+  --color-border-focus:  var(--color-secondary);
+  --color-heading:       var(--color-primary);
   --color-error:         #dc2626;
   --color-success:       #16a34a;
   --color-warning:       #d97706;
@@ -1784,15 +1790,20 @@ h6 { font-size: var(--font-size-sm); }
    ============================================================ */
 
 [data-theme="dark"] {
-  --color-bg:           #0d0d0d;
-  --color-surface:      #1a1a1a;
-  --color-surface-2:    #242424;
-  --color-text:         #f9fafb;
-  --color-text-muted:   #9ca3af;
-  --color-border:       #2d2d2d;
-  --color-border-focus: #f9fafb;
-  --color-accent:       #f9fafb;
-  --color-accent-hover: #d1d5db;
+  --color-primary:       #E8EEF1;
+  --color-primary-hover: #d1d5db;
+  --color-secondary:     #4CAF50;
+  --color-secondary-hover: #66BB6A;
+  --color-bg:            #0d0d0d;
+  --color-surface:       #1a1a1a;
+  --color-surface-2:     #242424;
+  --color-text:          #f9fafb;
+  --color-text-muted:    #9ca3af;
+  --color-border:        #2d2d2d;
+  --color-border-focus:  var(--color-secondary);
+  --color-heading:       #f9fafb;
+  --color-accent:        var(--color-secondary);
+  --color-accent-hover:  var(--color-secondary-hover);
 }
 [data-theme="dark"] .hero {
   background-color: #1a1a1a;
@@ -1922,8 +1933,8 @@ h6 { font-size: var(--font-size-sm); }
   --color-gold:       #c9a84c;
   --color-gold-light: #f0e0a8;
   --color-gold-dark:  #a07828;
-  --color-dark-bg:    #111827;
-  --color-dark-surface: #1f2937;
+  --color-dark-bg:    var(--color-primary);
+  --color-dark-surface: var(--color-primary-hover);
 }
 
 /* ---------- Section eyebrow ---------- */
@@ -1952,7 +1963,7 @@ h6 { font-size: var(--font-size-sm); }
   z-index: 0;
 }
 .hero--embroidery:not(.hero--has-image) {
-  background: linear-gradient(135deg, #111827 0%, #1f2937 50%, #374151 100%);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-hover) 50%, #3A5068 100%);
 }
 
 /* Hero badge */
@@ -1978,7 +1989,7 @@ h6 { font-size: var(--font-size-sm); }
 .hero__cta-primary {
   background-color: var(--color-gold) !important;
   border-color: var(--color-gold) !important;
-  color: #111827 !important;
+  color: var(--color-primary) !important;
   font-weight: var(--font-weight-semibold) !important;
 }
 .hero__cta-primary:hover {
@@ -2093,7 +2104,7 @@ h6 { font-size: var(--font-size-sm); }
   top: -8px;
   right: calc(50% - 48px);
   background-color: var(--color-gold);
-  color: #111827;
+  color: var(--color-primary);
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-bold);
   width: 24px;
@@ -2175,7 +2186,7 @@ h6 { font-size: var(--font-size-sm); }
   bottom: var(--space-6);
   right: var(--space-6);
   background: var(--color-gold);
-  color: #111827;
+  color: var(--color-primary);
   padding: var(--space-3) var(--space-5);
   border-radius: var(--radius-full);
   font-size: var(--font-size-xs);
@@ -2214,7 +2225,7 @@ h6 { font-size: var(--font-size-sm); }
   width: 28px;
   height: 28px;
   background-color: var(--color-gold);
-  color: #111827;
+  color: var(--color-primary);
   border-radius: var(--radius-full);
   display: flex;
   align-items: center;
@@ -2245,7 +2256,7 @@ h6 { font-size: var(--font-size-sm); }
 .embroidery-showcase-section .btn--primary {
   background-color: var(--color-gold);
   border-color: var(--color-gold);
-  color: #111827;
+  color: var(--color-primary);
 }
 .embroidery-showcase-section .btn--primary:hover {
   background-color: var(--color-gold-dark);
@@ -2380,7 +2391,7 @@ h6 { font-size: var(--font-size-sm); }
 
 /* ---------- Bulk Order Section ---------- */
 .bulk-order-section {
-  background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-hover) 100%);
   color: #ffffff;
 }
 .bulk-order-inner {
@@ -2428,7 +2439,7 @@ h6 { font-size: var(--font-size-sm); }
 .bulk-order-section .btn--primary {
   background-color: var(--color-gold);
   border-color: var(--color-gold);
-  color: #111827;
+  color: var(--color-primary);
   font-weight: var(--font-weight-semibold);
 }
 .bulk-order-section .btn--primary:hover {
@@ -2551,7 +2562,7 @@ h6 { font-size: var(--font-size-sm); }
 .email-capture-section .btn--primary {
   background-color: var(--color-gold);
   border-color: var(--color-gold);
-  color: #111827;
+  color: var(--color-primary);
   font-weight: var(--font-weight-semibold);
 }
 .email-capture-section .btn--primary:hover {
