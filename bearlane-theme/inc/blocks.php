@@ -53,7 +53,7 @@ add_action( 'init', 'bearlane_register_block_styles' );
  * Enqueue block editor styles.
  */
 function bearlane_editor_styles(): void {
-	add_editor_style( [ 'assets/css/editor.css', 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap' ] );
+	add_editor_style( [ 'assets/css/editor.css', 'https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Open+Sans:wght@400;500;600;700&display=swap' ] );
 }
 add_action( 'after_setup_theme', 'bearlane_editor_styles' );
 
@@ -64,7 +64,7 @@ function bearlane_block_editor_settings( array $settings ): array {
 	$settings['__experimentalFeatures']['color']['palette']['theme'] = [
 		[ 'slug' => 'primary',   'color' => get_theme_mod( 'bearlane_primary_color',   '#1B2D42' ), 'name' => __( 'Primary (Navy)', 'bearlane' ) ],
 		[ 'slug' => 'secondary', 'color' => get_theme_mod( 'bearlane_secondary_color', '#3D8B37' ), 'name' => __( 'Secondary (Green)', 'bearlane' ) ],
-		[ 'slug' => 'accent',    'color' => get_theme_mod( 'bearlane_secondary_color', '#3D8B37' ), 'name' => __( 'Accent', 'bearlane' ) ],
+		[ 'slug' => 'accent',    'color' => get_theme_mod( 'bearlane_accent_color',    '#c9a84c' ), 'name' => __( 'Accent (Gold)', 'bearlane' ) ],
 		[ 'slug' => 'text',      'color' => get_theme_mod( 'bearlane_text_primary',    '#1B2D42' ), 'name' => __( 'Text', 'bearlane' ) ],
 		[ 'slug' => 'surface',   'color' => get_theme_mod( 'bearlane_surface_color',   '#ffffff' ), 'name' => __( 'Surface', 'bearlane' ) ],
 	];

@@ -333,7 +333,7 @@ table.shop_table img { width: 64px; height: 64px; object-fit: cover; border-radi
   padding: var(--space-4) !important;
   border-radius: var(--radius-full) !important;
   background-color: var(--color-accent) !important;
-  color: #fff !important;
+  color: var(--color-surface) !important;
   border: 1.5px solid var(--color-accent) !important;
   text-decoration: none !important;
   letter-spacing: 0.01em;
@@ -341,7 +341,7 @@ table.shop_table img { width: 64px; height: 64px; object-fit: cover; border-radi
 .wc-proceed-to-checkout a.checkout-button:hover {
   background-color: var(--color-accent-hover) !important;
   border-color: var(--color-accent-hover) !important;
-  color: #fff !important;
+  color: var(--color-surface) !important;
 }
 
 /* ============================================================
@@ -518,7 +518,7 @@ p.woocommerce-mini-cart__buttons a.button:focus-visible {
 p.woocommerce-mini-cart__buttons a.button.checkout,
 .widget_shopping_cart .buttons a.checkout {
   background-color: var(--color-accent) !important;
-  color: #fff !important;
+  color: var(--color-surface) !important;
   border-color: var(--color-accent) !important;
   letter-spacing: 0.01em;
 }
@@ -528,7 +528,7 @@ p.woocommerce-mini-cart__buttons a.button.checkout:hover,
 .widget_shopping_cart .buttons a.checkout:hover {
   background-color: var(--color-accent-hover) !important;
   border-color: var(--color-accent-hover) !important;
-  color: #fff !important;
+  color: var(--color-surface) !important;
 }
 #mini-cart .woocommerce-mini-cart__buttons a:not(.checkout),
 #mini-cart .woocommerce-mini-cart__buttons a.button:not(.checkout),
@@ -543,7 +543,7 @@ p.woocommerce-mini-cart__buttons a.button:not(.checkout),
 p.woocommerce-mini-cart__buttons a.button:not(.checkout):hover,
 .widget_shopping_cart .buttons a:not(.checkout):hover {
   background-color: var(--color-accent) !important;
-  color: #fff !important;
+  color: var(--color-surface) !important;
 }
 
 /* ============================================================
@@ -552,7 +552,7 @@ p.woocommerce-mini-cart__buttons a.button:not(.checkout):hover,
 
 .woocommerce .star-rating {
   font-size: 0.75rem;
-  color: #f59e0b;
+  color: var(--color-gold);
   overflow: hidden;
   position: relative;
   height: 1em;
@@ -582,7 +582,7 @@ p.woocommerce-mini-cart__buttons a.button:not(.checkout):hover,
   top: 0;
   position: absolute;
   left: 0;
-  color: #f59e0b;
+  color: var(--color-gold);
   font-family: WooCommerce, sans-serif;
 }
 
@@ -592,7 +592,7 @@ p.woocommerce-mini-cart__buttons a.button:not(.checkout):hover,
 
 .woocommerce span.onsale {
   background-color: var(--color-sale);
-  color: #ffffff;
+  color: var(--color-surface);
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-semibold);
   padding: 3px var(--space-3);
@@ -651,7 +651,7 @@ p.woocommerce-mini-cart__buttons a.button:not(.checkout):hover,
   gap: var(--space-2);
   color: var(--color-text);
 }
-.wc-embroidery-options__title svg { color: #c9a84c; }
+.wc-embroidery-options__title svg { color: var(--color-gold); }
 
 .wc-embroidery-field {
   margin-bottom: var(--space-5);
@@ -689,8 +689,8 @@ p.woocommerce-mini-cart__buttons a.button:not(.checkout):hover,
 .wc-embroidery-field select:focus,
 .wc-embroidery-field input[type="text"]:focus,
 .wc-embroidery-field textarea:focus {
-  border-color: #c9a84c;
-  box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.12);
+  border-color: var(--color-gold);
+  box-shadow: 0 0 0 3px rgb(var(--color-gold-rgb) / 0.12);
 }
 .wc-embroidery-field textarea {
   resize: vertical;
@@ -714,7 +714,7 @@ p.woocommerce-mini-cart__buttons a.button:not(.checkout):hover,
   outline: none;
 }
 .thread-swatch:hover { transform: scale(1.15); border-color: var(--color-text); }
-.thread-swatch.is-selected { border-color: #c9a84c; box-shadow: 0 0 0 2px #c9a84c; transform: scale(1.1); }
+.thread-swatch.is-selected { border-color: var(--color-gold); box-shadow: 0 0 0 2px var(--color-gold); transform: scale(1.1); }
 .thread-swatch[title]::after {
   content: attr(title);
   position: absolute;
@@ -745,8 +745,8 @@ p.woocommerce-mini-cart__buttons a.button:not(.checkout):hover,
   transition: border-color var(--transition-fast), background-color var(--transition-fast);
 }
 .wc-embroidery-upload:hover, .wc-embroidery-upload.dragover {
-  border-color: #c9a84c;
-  background-color: rgba(201, 168, 76, 0.04);
+  border-color: var(--color-gold);
+  background-color: rgb(var(--color-gold-rgb) / 0.04);
 }
 .wc-embroidery-upload input[type="file"] {
   position: absolute;

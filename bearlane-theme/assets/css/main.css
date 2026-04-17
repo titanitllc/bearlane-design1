@@ -364,7 +364,7 @@ h6 { font-size: var(--font-size-sm); }
 /* Primary */
 .btn--primary {
   background-color: var(--color-accent);
-  color: #fff;
+  color: var(--color-surface);
   border-color: var(--color-accent);
   border-radius: var(--radius-full);
   font-weight: var(--font-weight-semibold);
@@ -373,7 +373,7 @@ h6 { font-size: var(--font-size-sm); }
 .btn--primary:hover {
   background-color: var(--color-accent-hover);
   border-color: var(--color-accent-hover);
-  color: #fff;
+  color: var(--color-surface);
 }
 
 /* Outline */
@@ -739,7 +739,7 @@ h6 { font-size: var(--font-size-sm); }
 .hero__heading {
   font-size: clamp(var(--font-size-4xl), 5vw, var(--font-size-6xl));
   font-weight: var(--font-weight-bold);
-  color: #ffffff;
+  color: var(--color-surface);
   letter-spacing: -0.03em;
   line-height: 1.1;
   margin-bottom: var(--space-6);
@@ -757,9 +757,9 @@ h6 { font-size: var(--font-size-sm); }
   gap: var(--space-4);
 }
 .hero__cta-group .btn--primary {
-  background-color: #ffffff;
+  background-color: var(--color-surface);
   color: var(--color-accent);
-  border-color: #ffffff;
+  border-color: var(--color-surface);
 }
 .hero__cta-group .btn--primary:hover {
   background-color: var(--color-surface-2);
@@ -767,11 +767,11 @@ h6 { font-size: var(--font-size-sm); }
 }
 .hero__cta-group .btn--outline {
   border-color: rgb(255 255 255 / 0.6);
-  color: #ffffff;
+  color: var(--color-surface);
 }
 .hero__cta-group .btn--outline:hover {
   background-color: rgb(255 255 255 / 0.15);
-  border-color: #ffffff;
+  border-color: var(--color-surface);
 }
 
 /* Scroll indicator */
@@ -1025,7 +1025,7 @@ h6 { font-size: var(--font-size-sm); }
   display: flex;
   gap: 2px;
   margin-bottom: var(--space-4);
-  color: #f59e0b;
+  color: var(--color-gold);
 }
 .testimonial-card__quote {
   font-size: var(--font-size-md);
@@ -1187,7 +1187,7 @@ h6 { font-size: var(--font-size-sm); }
 }
 .cta-block__title {
   font-size: clamp(var(--font-size-3xl), 4vw, var(--font-size-5xl));
-  color: #ffffff;
+  color: var(--color-surface);
   margin-bottom: var(--space-4);
 }
 .cta-block__desc {
@@ -1196,9 +1196,9 @@ h6 { font-size: var(--font-size-sm); }
   margin-bottom: var(--space-8);
 }
 .cta-block .btn--primary {
-  background-color: #ffffff;
+  background-color: var(--color-surface);
   color: var(--color-accent);
-  border-color: #ffffff;
+  border-color: var(--color-surface);
 }
 .cta-block .btn--primary:hover {
   background-color: var(--color-surface-2);
@@ -1641,7 +1641,7 @@ h6 { font-size: var(--font-size-sm); }
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
-.badge--sale { background-color: var(--color-sale); color: #ffffff; }
+.badge--sale { background-color: var(--color-sale); color: var(--color-surface); }
 .badge--featured { background-color: var(--color-accent); color: var(--color-bg); }
 
 /* ============================================================
@@ -2156,7 +2156,7 @@ h6 { font-size: var(--font-size-sm); }
 /* ---------- Embroidery Quality Showcase ---------- */
 .embroidery-showcase-section {
   background-color: var(--color-dark-bg);
-  color: #ffffff;
+  color: var(--color-surface);
 }
 .embroidery-showcase-section .section__eyebrow { color: var(--color-gold); }
 .embroidery-showcase {
@@ -2209,7 +2209,7 @@ h6 { font-size: var(--font-size-sm); }
 }
 .embroidery-showcase__title {
   font-size: clamp(var(--font-size-2xl), 3vw, var(--font-size-4xl));
-  color: #ffffff;
+  color: var(--color-surface);
   margin-bottom: var(--space-5);
   line-height: 1.15;
 }
@@ -2250,7 +2250,7 @@ h6 { font-size: var(--font-size-sm); }
 .embroidery-quality-item__title {
   font-size: var(--font-size-md);
   font-weight: var(--font-weight-semibold);
-  color: #ffffff;
+  color: var(--color-surface);
 }
 .embroidery-quality-item__desc {
   font-size: var(--font-size-sm);
@@ -2273,11 +2273,11 @@ h6 { font-size: var(--font-size-sm); }
 }
 .embroidery-showcase-section .btn--outline {
   border-color: rgb(255 255 255 / 0.4);
-  color: #ffffff;
+  color: var(--color-surface);
 }
 .embroidery-showcase-section .btn--outline:hover {
   background-color: rgb(255 255 255 / 0.1);
-  border-color: #ffffff;
+  border-color: var(--color-surface);
 }
 
 /* ---------- Best Sellers — Tabbed Section ---------- */
@@ -2396,12 +2396,12 @@ h6 { font-size: var(--font-size-sm); }
   font-weight: var(--font-weight-semibold);
   color: var(--color-text);
 }
-.testimonials-cta__text svg { color: #f59e0b; }
+.testimonials-cta__text svg { color: var(--color-gold); }
 
 /* ---------- Bulk Order Section ---------- */
 .bulk-order-section {
   background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-hover) 100%);
-  color: #ffffff;
+  color: var(--color-surface);
 }
 .bulk-order-inner {
   display: grid;
@@ -2411,7 +2411,7 @@ h6 { font-size: var(--font-size-sm); }
 }
 .bulk-order__title {
   font-size: clamp(var(--font-size-2xl), 3vw, var(--font-size-4xl));
-  color: #ffffff;
+  color: var(--color-surface);
   margin-bottom: var(--space-5);
   line-height: 1.2;
 }
@@ -2457,7 +2457,7 @@ h6 { font-size: var(--font-size-sm); }
 }
 .bulk-order-section .btn--ghost {
   border-color: rgb(255 255 255 / 0.3);
-  color: #ffffff;
+  color: var(--color-surface);
 }
 .bulk-order-section .btn--ghost:hover {
   background-color: rgb(255 255 255 / 0.1);
