@@ -46,6 +46,9 @@ function bearlane_customizer_register( \WP_Customize_Manager $wp_customize ): vo
 		'primary_hover'     => [ __( 'Primary Hover', 'bearlane' ),              '#263D56' ],
 		'secondary_color'   => [ __( 'Secondary Colour (Green)', 'bearlane' ),   '#3D8B37' ],
 		'secondary_hover'   => [ __( 'Secondary Hover', 'bearlane' ),            '#2D6B29' ],
+		'accent_color'      => [ __( 'Accent Colour (Gold)', 'bearlane' ),       '#c9a84c' ],
+		'accent_hover'      => [ __( 'Accent Hover', 'bearlane' ),               '#a07828' ],
+		'accent_light'      => [ __( 'Accent Light', 'bearlane' ),               '#f0e0a8' ],
 		'heading_color'     => [ __( 'Heading Colour', 'bearlane' ),             '#1B2D42' ],
 		'text_primary'      => [ __( 'Primary Text', 'bearlane' ),               '#1B2D42' ],
 		'text_secondary'    => [ __( 'Secondary Text', 'bearlane' ),             '#5e6a75' ],
@@ -366,6 +369,26 @@ function bearlane_customizer_register( \WP_Customize_Manager $wp_customize ): vo
 		'type'    => 'textarea',
 	] );
 
+	$footer_colors = [
+		'footer_bg'         => [ __( 'Footer Background', 'bearlane' ),        '' ],
+		'footer_bg_accent'  => [ __( 'Footer Background Accent', 'bearlane' ), '' ],
+		'footer_text'       => [ __( 'Footer Text Colour', 'bearlane' ),       '#ffffff' ],
+		'footer_accent'     => [ __( 'Footer Accent Colour', 'bearlane' ),     '' ],
+	];
+
+	foreach ( $footer_colors as $id => [ $label, $default ] ) {
+		$wp_customize->add_setting( 'bearlane_' . $id, [
+			'default'           => $default,
+			'sanitize_callback' => 'bearlane_sanitize_color_or_empty',
+			'transport'         => 'postMessage',
+		] );
+		$wp_customize->add_control( new \WP_Customize_Color_Control( $wp_customize, 'bearlane_' . $id, [
+			'label'       => $label,
+			'description' => __( 'Leave empty to inherit from theme colours.', 'bearlane' ),
+			'section'     => 'bearlane_footer',
+		] ) );
+	}
+
 	// -----------------------------------------------------------------------
 	// Section — Dark Mode
 	// -----------------------------------------------------------------------
@@ -405,6 +428,21 @@ function bearlane_sanitize_color_or_empty( string $value ): string {
 }
 
 /**
+ * Convert a 3- or 6-digit hex colour to a "R, G, B" triplet for use inside
+ * rgb()/rgba() CSS functions (e.g. "201, 168, 76" for #c9a84c).
+ */
+function bearlane_hex_to_rgb_triplet( string $hex ): string {
+	$hex = ltrim( (string) $hex, '#' );
+	if ( 3 === strlen( $hex ) ) {
+		$hex = $hex[0] . $hex[0] . $hex[1] . $hex[1] . $hex[2] . $hex[2];
+	}
+	if ( 6 !== strlen( $hex ) || ! ctype_xdigit( $hex ) ) {
+		return '201, 168, 76';
+	}
+	return hexdec( substr( $hex, 0, 2 ) ) . ', ' . hexdec( substr( $hex, 2, 2 ) ) . ', ' . hexdec( substr( $hex, 4, 2 ) );
+}
+
+/**
  * Output dynamic CSS custom properties driven by Customizer settings.
  * This runs on every page load; values are cached in a transient.
  */
@@ -427,6 +465,14 @@ function bearlane_get_customizer_css(): string {
 	$secondary  = get_theme_mod( 'bearlane_secondary_color', '#3D8B37' );
 	$sec_hover  = get_theme_mod( 'bearlane_secondary_hover', '#2D6B29' );
 	$surface_2  = get_theme_mod( 'bearlane_surface_2_color', '#E8EEF1' );
+	$gold       = get_theme_mod( 'bearlane_accent_color',    '#c9a84c' );
+	$gold_dark  = get_theme_mod( 'bearlane_accent_hover',    '#a07828' );
+	$gold_light = get_theme_mod( 'bearlane_accent_light',    '#f0e0a8' );
+
+	$footer_bg        = get_theme_mod( 'bearlane_footer_bg',        '' ) ?: $primary;
+	$footer_bg_accent = get_theme_mod( 'bearlane_footer_bg_accent', '' ) ?: $pri_hover;
+	$footer_text      = get_theme_mod( 'bearlane_footer_text',      '#ffffff' );
+	$footer_accent    = get_theme_mod( 'bearlane_footer_accent',    '' ) ?: $gold;
 
 	$vars = [
 		'--color-primary'         => $primary,
@@ -435,6 +481,18 @@ function bearlane_get_customizer_css(): string {
 		'--color-secondary-hover' => $sec_hover,
 		'--color-accent'          => $secondary,
 		'--color-accent-hover'    => $sec_hover,
+		'--color-gold'             => $gold,
+		'--color-gold-dark'        => $gold_dark,
+		'--color-gold-light'       => $gold_light,
+		'--color-gold-rgb'         => bearlane_hex_to_rgb_triplet( $gold ),
+		'--color-dark-bg'          => $primary,
+		'--color-dark-surface'     => $pri_hover,
+		'--color-footer-bg'        => $footer_bg,
+		'--color-footer-bg-accent' => $footer_bg_accent,
+		'--color-footer-text'      => $footer_text,
+		'--color-footer-text-rgb'  => bearlane_hex_to_rgb_triplet( $footer_text ),
+		'--color-footer-accent'    => $footer_accent,
+		'--color-footer-accent-rgb' => bearlane_hex_to_rgb_triplet( $footer_accent ),
 		'--color-heading'         => get_theme_mod( 'bearlane_heading_color',   '#1B2D42' ),
 		'--color-text'            => get_theme_mod( 'bearlane_text_primary',    '#1B2D42' ),
 		'--color-text-muted'      => get_theme_mod( 'bearlane_text_secondary',  '#5e6a75' ),

@@ -67,6 +67,24 @@
   --color-warning:       #d97706;
   --color-sale:          #dc2626;
 
+  /* Embroidery / section accent (driven by Customizer → Theme Colours) */
+  --color-gold:          #c9a84c;
+  --color-gold-light:    #f0e0a8;
+  --color-gold-dark:     #a07828;
+  --color-gold-rgb:      201, 168, 76;
+
+  /* Dark section tokens (derived from primary by default) */
+  --color-dark-bg:       var(--color-primary);
+  --color-dark-surface:  var(--color-primary-hover);
+
+  /* Footer tokens (derived from primary by default) */
+  --color-footer-bg:         var(--color-primary);
+  --color-footer-bg-accent:  var(--color-primary-hover);
+  --color-footer-text:       #ffffff;
+  --color-footer-text-rgb:   255, 255, 255;
+  --color-footer-accent:     var(--color-gold);
+  --color-footer-accent-rgb: var(--color-gold-rgb);
+
   /* Typography */
   --font-sans:       'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
   --font-heading:    'Montserrat', 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
@@ -346,7 +364,7 @@ h6 { font-size: var(--font-size-sm); }
 /* Primary */
 .btn--primary {
   background-color: var(--color-accent);
-  color: #fff;
+  color: var(--color-surface);
   border-color: var(--color-accent);
   border-radius: var(--radius-full);
   font-weight: var(--font-weight-semibold);
@@ -355,7 +373,7 @@ h6 { font-size: var(--font-size-sm); }
 .btn--primary:hover {
   background-color: var(--color-accent-hover);
   border-color: var(--color-accent-hover);
-  color: #fff;
+  color: var(--color-surface);
 }
 
 /* Outline */
@@ -702,7 +720,7 @@ h6 { font-size: var(--font-size-sm); }
   min-height: 90vh;
   display: flex;
   align-items: center;
-  background: linear-gradient(180deg, #f5f8fa 0%, #edf3f6 100%);
+  background: linear-gradient(180deg, var(--color-surface) 0%, var(--color-surface-2) 100%);
   overflow: hidden;
 }
 .hero--has-image {
@@ -721,7 +739,7 @@ h6 { font-size: var(--font-size-sm); }
 .hero__heading {
   font-size: clamp(var(--font-size-4xl), 5vw, var(--font-size-6xl));
   font-weight: var(--font-weight-bold);
-  color: #ffffff;
+  color: var(--color-surface);
   letter-spacing: -0.03em;
   line-height: 1.1;
   margin-bottom: var(--space-6);
@@ -739,9 +757,9 @@ h6 { font-size: var(--font-size-sm); }
   gap: var(--space-4);
 }
 .hero__cta-group .btn--primary {
-  background-color: #ffffff;
+  background-color: var(--color-surface);
   color: var(--color-accent);
-  border-color: #ffffff;
+  border-color: var(--color-surface);
 }
 .hero__cta-group .btn--primary:hover {
   background-color: var(--color-surface-2);
@@ -749,11 +767,11 @@ h6 { font-size: var(--font-size-sm); }
 }
 .hero__cta-group .btn--outline {
   border-color: rgb(255 255 255 / 0.6);
-  color: #ffffff;
+  color: var(--color-surface);
 }
 .hero__cta-group .btn--outline:hover {
   background-color: rgb(255 255 255 / 0.15);
-  border-color: #ffffff;
+  border-color: var(--color-surface);
 }
 
 /* Scroll indicator */
@@ -1007,7 +1025,7 @@ h6 { font-size: var(--font-size-sm); }
   display: flex;
   gap: 2px;
   margin-bottom: var(--space-4);
-  color: #f59e0b;
+  color: var(--color-gold);
 }
 .testimonial-card__quote {
   font-size: var(--font-size-md);
@@ -1169,7 +1187,7 @@ h6 { font-size: var(--font-size-sm); }
 }
 .cta-block__title {
   font-size: clamp(var(--font-size-3xl), 4vw, var(--font-size-5xl));
-  color: #ffffff;
+  color: var(--color-surface);
   margin-bottom: var(--space-4);
 }
 .cta-block__desc {
@@ -1178,9 +1196,9 @@ h6 { font-size: var(--font-size-sm); }
   margin-bottom: var(--space-8);
 }
 .cta-block .btn--primary {
-  background-color: #ffffff;
+  background-color: var(--color-surface);
   color: var(--color-accent);
-  border-color: #ffffff;
+  border-color: var(--color-surface);
 }
 .cta-block .btn--primary:hover {
   background-color: var(--color-surface-2);
@@ -1293,8 +1311,8 @@ h6 { font-size: var(--font-size-sm); }
    ============================================================ */
 
 .site-footer {
-  background: linear-gradient(120deg, #23bed0 0%, #168caa 100%);
-  color: rgb(255 255 255 / 0.92);
+  background: linear-gradient(120deg, var(--color-footer-bg) 0%, var(--color-footer-bg-accent) 100%);
+  color: var(--color-footer-text);
 }
 .site-footer__main { padding: var(--space-16) 0; }
 
@@ -1309,13 +1327,13 @@ h6 { font-size: var(--font-size-sm); }
 .footer-logo--text {
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-bold);
-  color: #ffffff;
+  color: var(--color-footer-text);
   display: block;
 }
-.footer-logo img { filter: brightness(0) invert(1); max-height: 40px; }
+.footer-logo img { max-height: 56px; width: auto; }
 .footer-tagline {
   font-size: var(--font-size-sm);
-  color: rgb(255 255 255 / 0.6);
+  color: rgb(var(--color-footer-text-rgb) / 0.6);
   line-height: 1.6;
   margin-bottom: var(--space-6);
 }
@@ -1328,20 +1346,20 @@ h6 { font-size: var(--font-size-sm); }
   width: 36px;
   height: 36px;
   border-radius: var(--radius-md);
-  border: 1px solid rgb(255 255 255 / 0.2);
-  color: rgb(255 255 255 / 0.7);
+  border: 1px solid rgb(var(--color-footer-text-rgb) / 0.2);
+  color: rgb(var(--color-footer-text-rgb) / 0.7);
   transition: background-color var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
 }
 .footer-social__link:hover {
-  background-color: rgb(255 255 255 / 0.1);
-  color: #ffffff;
-  border-color: rgb(255 255 255 / 0.4);
+  background-color: rgb(var(--color-footer-text-rgb) / 0.1);
+  color: var(--color-footer-accent);
+  border-color: rgb(var(--color-footer-accent-rgb) / 0.5);
 }
 
 .footer-col__title {
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-semibold);
-  color: #ffffff;
+  color: var(--color-footer-text);
   text-transform: uppercase;
   letter-spacing: 0.08em;
   margin-bottom: var(--space-4);
@@ -1349,16 +1367,16 @@ h6 { font-size: var(--font-size-sm); }
 .footer-nav .menu { display: flex; flex-direction: column; gap: var(--space-2); }
 .footer-nav a {
   font-size: var(--font-size-sm);
-  color: rgb(255 255 255 / 0.65);
+  color: rgb(var(--color-footer-text-rgb) / 0.65);
   transition: color var(--transition-fast);
   display: block;
   padding: 2px 0;
 }
-.footer-nav a:hover { color: #ffffff; }
+.footer-nav a:hover { color: var(--color-footer-accent); }
 
 .footer-col--newsletter p {
   font-size: var(--font-size-sm);
-  color: rgb(255 255 255 / 0.65);
+  color: rgb(var(--color-footer-text-rgb) / 0.65);
   margin-bottom: var(--space-4);
 }
 .newsletter-form__group {
@@ -1368,31 +1386,31 @@ h6 { font-size: var(--font-size-sm); }
 .newsletter-form__input {
   flex: 1;
   padding: var(--space-3) var(--space-4);
-  border: 1px solid rgb(255 255 255 / 0.2);
+  border: 1px solid rgb(var(--color-footer-text-rgb) / 0.2);
   border-radius: var(--radius-md);
-  background-color: rgb(255 255 255 / 0.08);
-  color: #ffffff;
+  background-color: rgb(var(--color-footer-text-rgb) / 0.08);
+  color: var(--color-footer-text);
   font-size: var(--font-size-sm);
   font-family: var(--font-sans);
   outline: none;
   transition: border-color var(--transition-fast);
 }
-.newsletter-form__input::placeholder { color: rgb(255 255 255 / 0.4); }
-.newsletter-form__input:focus { border-color: rgb(255 255 255 / 0.5); }
+.newsletter-form__input::placeholder { color: rgb(var(--color-footer-text-rgb) / 0.4); }
+.newsletter-form__input:focus { border-color: var(--color-footer-accent); }
 .newsletter-form__btn {
-  background-color: #ffffff;
-  color: var(--color-accent);
-  border-color: #ffffff;
+  background-color: var(--color-footer-accent);
+  color: var(--color-footer-bg);
+  border-color: var(--color-footer-accent);
   flex-shrink: 0;
 }
 .newsletter-form__btn:hover {
-  background-color: var(--color-surface-2);
-  border-color: var(--color-surface-2);
-  color: var(--color-accent);
+  background-color: var(--color-gold-dark);
+  border-color: var(--color-gold-dark);
+  color: var(--color-footer-bg);
 }
 
 .site-footer__bottom {
-  border-top: 1px solid rgb(255 255 255 / 0.1);
+  border-top: 1px solid rgb(var(--color-footer-text-rgb) / 0.1);
   padding: var(--space-6) 0;
 }
 .site-footer__bottom-inner {
@@ -1404,7 +1422,7 @@ h6 { font-size: var(--font-size-sm); }
 }
 .footer-copyright {
   font-size: var(--font-size-xs);
-  color: rgb(255 255 255 / 0.5);
+  color: rgb(var(--color-footer-text-rgb) / 0.55);
   margin: 0;
 }
 
@@ -1415,14 +1433,14 @@ h6 { font-size: var(--font-size-sm); }
 }
 .footer-legal__menu a {
   font-size: var(--font-size-xs);
-  color: rgb(255 255 255 / 0.5);
+  color: rgb(var(--color-footer-text-rgb) / 0.55);
   transition: color var(--transition-fast);
 }
-.footer-legal__menu a:hover { color: #ffffff; }
+.footer-legal__menu a:hover { color: var(--color-footer-accent); }
 
 .footer-payments {
   font-size: var(--font-size-xs);
-  color: rgb(255 255 255 / 0.5);
+  color: rgb(var(--color-footer-text-rgb) / 0.55);
 }
 .footer-payments__label { margin-right: var(--space-2); }
 
@@ -1623,7 +1641,7 @@ h6 { font-size: var(--font-size-sm); }
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
-.badge--sale { background-color: var(--color-sale); color: #ffffff; }
+.badge--sale { background-color: var(--color-sale); color: var(--color-surface); }
 .badge--featured { background-color: var(--color-accent); color: var(--color-bg); }
 
 /* ============================================================
@@ -1928,15 +1946,6 @@ h6 { font-size: var(--font-size-sm); }
    New sections, component upgrades, and embroidery-specific styles.
    ============================================================ */
 
-/* ---------- Design tokens (embroidery accent) ---------- */
-:root {
-  --color-gold:       #c9a84c;
-  --color-gold-light: #f0e0a8;
-  --color-gold-dark:  #a07828;
-  --color-dark-bg:    var(--color-primary);
-  --color-dark-surface: var(--color-primary-hover);
-}
-
 /* ---------- Section eyebrow ---------- */
 .section__eyebrow {
   display: inline-block;
@@ -1963,7 +1972,7 @@ h6 { font-size: var(--font-size-sm); }
   z-index: 0;
 }
 .hero--embroidery:not(.hero--has-image) {
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-hover) 50%, #3A5068 100%);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-hover) 50%, var(--color-primary-hover) 100%);
 }
 
 /* Hero badge */
@@ -1974,9 +1983,9 @@ h6 { font-size: var(--font-size-sm); }
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  background-color: rgba(201, 168, 76, 0.15);
+  background-color: rgb(var(--color-gold-rgb) / 0.15);
   color: var(--color-gold);
-  border: 1px solid rgba(201, 168, 76, 0.3);
+  border: 1px solid rgb(var(--color-gold-rgb) / 0.3);
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-semibold);
   text-transform: uppercase;
@@ -2147,7 +2156,7 @@ h6 { font-size: var(--font-size-sm); }
 /* ---------- Embroidery Quality Showcase ---------- */
 .embroidery-showcase-section {
   background-color: var(--color-dark-bg);
-  color: #ffffff;
+  color: var(--color-surface);
 }
 .embroidery-showcase-section .section__eyebrow { color: var(--color-gold); }
 .embroidery-showcase {
@@ -2200,7 +2209,7 @@ h6 { font-size: var(--font-size-sm); }
 }
 .embroidery-showcase__title {
   font-size: clamp(var(--font-size-2xl), 3vw, var(--font-size-4xl));
-  color: #ffffff;
+  color: var(--color-surface);
   margin-bottom: var(--space-5);
   line-height: 1.15;
 }
@@ -2241,7 +2250,7 @@ h6 { font-size: var(--font-size-sm); }
 .embroidery-quality-item__title {
   font-size: var(--font-size-md);
   font-weight: var(--font-weight-semibold);
-  color: #ffffff;
+  color: var(--color-surface);
 }
 .embroidery-quality-item__desc {
   font-size: var(--font-size-sm);
@@ -2264,11 +2273,11 @@ h6 { font-size: var(--font-size-sm); }
 }
 .embroidery-showcase-section .btn--outline {
   border-color: rgb(255 255 255 / 0.4);
-  color: #ffffff;
+  color: var(--color-surface);
 }
 .embroidery-showcase-section .btn--outline:hover {
   background-color: rgb(255 255 255 / 0.1);
-  border-color: #ffffff;
+  border-color: var(--color-surface);
 }
 
 /* ---------- Best Sellers — Tabbed Section ---------- */
@@ -2387,12 +2396,12 @@ h6 { font-size: var(--font-size-sm); }
   font-weight: var(--font-weight-semibold);
   color: var(--color-text);
 }
-.testimonials-cta__text svg { color: #f59e0b; }
+.testimonials-cta__text svg { color: var(--color-gold); }
 
 /* ---------- Bulk Order Section ---------- */
 .bulk-order-section {
   background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-hover) 100%);
-  color: #ffffff;
+  color: var(--color-surface);
 }
 .bulk-order-inner {
   display: grid;
@@ -2402,7 +2411,7 @@ h6 { font-size: var(--font-size-sm); }
 }
 .bulk-order__title {
   font-size: clamp(var(--font-size-2xl), 3vw, var(--font-size-4xl));
-  color: #ffffff;
+  color: var(--color-surface);
   margin-bottom: var(--space-5);
   line-height: 1.2;
 }
@@ -2448,7 +2457,7 @@ h6 { font-size: var(--font-size-sm); }
 }
 .bulk-order-section .btn--ghost {
   border-color: rgb(255 255 255 / 0.3);
-  color: #ffffff;
+  color: var(--color-surface);
 }
 .bulk-order-section .btn--ghost:hover {
   background-color: rgb(255 255 255 / 0.1);
@@ -2557,7 +2566,7 @@ h6 { font-size: var(--font-size-sm); }
 .email-capture-form__input::placeholder { color: var(--color-text-muted); }
 .email-capture-form__input:focus {
   border-color: var(--color-gold);
-  box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.12);
+  box-shadow: 0 0 0 3px rgb(var(--color-gold-rgb) / 0.12);
 }
 .email-capture-section .btn--primary {
   background-color: var(--color-gold);
